@@ -1,6 +1,6 @@
-package atm.scenebuilder.controller;
+package ATMjavafx.controller;
 
-import atm.scenebuilder.Account;
+import ATMjavafx.Account;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,7 +24,7 @@ this class checks user's password and navigate him to the main ATM menu
 public class A02_loginInputPasswordController implements Initializable {
   
   // set value
-  Account currentAccount = atm.scenebuilder.controller.A01_loginInputUserNameController.currentAccount;
+  Account currentAccount = ATMjavafx.controller.A01_loginInputUserNameController.currentAccount;
   
   @FXML private Label validateUserPassword;
   @FXML private PasswordField userPasswordField;
@@ -51,7 +51,7 @@ public class A02_loginInputPasswordController implements Initializable {
   }
   @FXML private void goToMainMenu()throws IOException{
     System.out.println("Go to the Main Menu");
-    Parent root = FXMLLoader.load(atm.scenebuilder.ATMSceneBuilder.class.getResource("fxml/C01_atmMainMenu.fxml"));
+    Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/C01_atmMainMenu.fxml"));
     Stage window;
     window=(Stage) checkUserPasswordButton.getScene().getWindow();
     window.setScene(new Scene(root));
@@ -59,7 +59,7 @@ public class A02_loginInputPasswordController implements Initializable {
   }
   @FXML private void backToPreviousScene()throws IOException{
     System.out.println("back to Login & Register");
-    Parent root = FXMLLoader.load(atm.scenebuilder.ATMSceneBuilder.class.getResource("fxml/A01_loginInputUserName.fxml"));
+    Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/A01_loginInputUserName.fxml"));
     Stage window=(Stage) backButton.getScene().getWindow();
     window.setScene(new Scene(root));
     window.show();

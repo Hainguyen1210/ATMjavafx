@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package atm.scenebuilder.controller;
+package ATMjavafx.controller;
 
-import atm.scenebuilder.Account;
+import ATMjavafx.Account;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -37,8 +37,8 @@ public class EditUserInfoController implements Initializable {
     assignCheckOnTAB();
   }
   
-  Account currentAccount = atm.scenebuilder.controller.A01_loginInputUserNameController.currentAccount;
-  private static ArrayList<Account> currentAcountsList = atm.scenebuilder.Account.accountList; 
+  Account currentAccount = ATMjavafx.controller.A01_loginInputUserNameController.currentAccount;
+  private static ArrayList<Account> currentAcountsList = ATMjavafx.Account.accountList; 
   private boolean isUserNameAvailable, isPasswordValid, isRealNameValid, isGenderValid, isAgeValid;
   private String finalUserName, finalPassword, finalRealName, finalGender;
   private int finalAge;
@@ -126,7 +126,7 @@ public class EditUserInfoController implements Initializable {
   
   @FXML private void backToMain() throws IOException{
     System.out.println("back to Login & Register");
-    Parent root = FXMLLoader.load(atm.scenebuilder.ATMSceneBuilder.class.getResource("fxml/C01_atmMainMenu.fxml"));
+    Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/C01_atmMainMenu.fxml"));
     Stage window=(Stage) saveUserInfoButton.getScene().getWindow(); // this code is to get the main window
     window.setScene(new Scene(root));
     window.show();

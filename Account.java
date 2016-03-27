@@ -1,4 +1,4 @@
-package atm.scenebuilder;
+package ATMjavafx;
 
 import java.io.File;
 import java.io.FileNotFoundException;

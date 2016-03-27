@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package atm.scenebuilder;
+package ATMjavafx;
 
 import javafx.scene.media.AudioClip;
 import static javafx.scene.media.AudioClip.INDEFINITE;

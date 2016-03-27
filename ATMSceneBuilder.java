@@ -23,7 +23,7 @@ List of features:
         ○ Charity offer-
 */
 
-package atm.scenebuilder;
+package ATMjavafx;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

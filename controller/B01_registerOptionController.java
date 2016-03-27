@@ -1,6 +1,6 @@
-package atm.scenebuilder.controller;
+package ATMjavafx.controller;
 
-import atm.scenebuilder.Account;
+import ATMjavafx.Account;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ this controller allows user to create new account with userName and passwords
 program also check the validity of user's input
 */
 public class B01_registerOptionController implements Initializable {
-  private static ArrayList<Account> currentAcountsList = atm.scenebuilder.Account.accountList; 
+  private static ArrayList<Account> currentAcountsList = ATMjavafx.Account.accountList; 
   private static boolean isUserNameAvailable, isPasswordValid;
   private static String finalUserName, finalPassword;
   @FXML public PasswordField userPassword1Field, userPassword2Field;
@@ -34,7 +34,7 @@ public class B01_registerOptionController implements Initializable {
   
   @FXML private void backToPreviousScene()throws IOException{
     System.out.println("back to Login & Register");
-    Parent root = FXMLLoader.load(atm.scenebuilder.ATMSceneBuilder.class.getResource("fxml/A00_loginAndRegister.fxml"));
+    Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/A00_loginAndRegister.fxml"));
     Stage window;
     window=(Stage) backButton.getScene().getWindow(); // this code is to get the main window
     window.setScene(new Scene(root));

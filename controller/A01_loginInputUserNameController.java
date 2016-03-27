@@ -1,6 +1,6 @@
-package atm.scenebuilder.controller;
+package ATMjavafx.controller;
 
-import atm.scenebuilder.Account;
+import ATMjavafx.Account;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class A01_loginInputUserNameController implements Initializable {
   }  
   
   // get array list of Accounts from the Account class
-  private static ArrayList<Account> currentAcountsList = atm.scenebuilder.Account.accountList; 
+  private static ArrayList<Account> currentAcountsList = ATMjavafx.Account.accountList; 
   public static Account currentAccount;
   private static boolean loginStatus;
   
@@ -43,7 +43,7 @@ public class A01_loginInputUserNameController implements Initializable {
   @FXML private Button checkUserNameButton, backButton, clearUserNameButton, toRegister;
   
   @FXML private void goToNextPage()throws IOException {
-    Parent root = FXMLLoader.load(atm.scenebuilder.ATMSceneBuilder.class.getResource("fxml/A02_loginInputPassword.fxml"));
+    Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/A02_loginInputPassword.fxml"));
     Stage window=(Stage) checkUserNameButton.getScene().getWindow(); // this code is to get the main window
     window.setScene(new Scene(root));
     window.show();
@@ -82,7 +82,7 @@ public class A01_loginInputUserNameController implements Initializable {
   }
   @FXML private void backToPreviousScene()throws IOException{
     System.out.println("back to Login & Register");
-    Parent root = FXMLLoader.load(atm.scenebuilder.ATMSceneBuilder.class.getResource("fxml/A00_loginAndRegister.fxml"));
+    Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/A00_loginAndRegister.fxml"));
     Stage window;
     window=(Stage) backButton.getScene().getWindow(); // this code is to get the main window
     window.setScene(new Scene(root));
@@ -90,7 +90,7 @@ public class A01_loginInputUserNameController implements Initializable {
   }
   @FXML private void toRegister()throws IOException{
     System.out.println("Going to the bank ");
-    Parent root = FXMLLoader.load(atm.scenebuilder.ATMSceneBuilder.class.getResource("fxml/B01_registerOption.fxml"));
+    Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/B01_registerOption.fxml"));
     Stage window;
     window=(Stage) toRegister.getScene().getWindow(); // this code is to get the main window
     window.setScene(new Scene(root));

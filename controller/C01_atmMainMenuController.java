@@ -1,6 +1,6 @@
-package atm.scenebuilder.controller;
+package ATMjavafx.controller;
 
-import atm.scenebuilder.Account;
+import ATMjavafx.Account;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -25,7 +25,7 @@ this controller currently allows users to view their information, deposit money
 */
 public class C01_atmMainMenuController implements Initializable {
    // set value
-  Account currentAccount = atm.scenebuilder.controller.A01_loginInputUserNameController.currentAccount;
+  Account currentAccount = ATMjavafx.controller.A01_loginInputUserNameController.currentAccount;
   long balanceAmount, withdrawalAmount,  remainingAmount;
   DecimalFormat format = new DecimalFormat(); // this object formats money's display
   Button[] buttonList;
@@ -46,14 +46,14 @@ public class C01_atmMainMenuController implements Initializable {
   
   @FXML private void backToLogin()throws IOException{
     System.out.println("back to Login & Register");
-    Parent root = FXMLLoader.load(atm.scenebuilder.ATMSceneBuilder.class.getResource("fxml/A01_loginInputUserName.fxml"));
+    Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/A01_loginInputUserName.fxml"));
     Stage window=(Stage) quitButton.getScene().getWindow(); // this code is to get the main window
     window.setScene(new Scene(root));
     window.show();
   }
   @FXML private void editUserInfo()throws IOException{
     System.out.println("saving user's info");
-    Parent root = FXMLLoader.load(atm.scenebuilder.ATMSceneBuilder.class.getResource("fxml/editUserInfo.fxml"));
+    Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/editUserInfo.fxml"));
     Stage window=(Stage) quitButton.getScene().getWindow(); // this code is to get the main window
     window.setScene(new Scene(root));
     window.show();
