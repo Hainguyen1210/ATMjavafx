@@ -32,6 +32,11 @@ import javafx.stage.Stage;
  * @author Hainguyen
  */
 public class EditUserInfoController implements Initializable {
+  @Override public void initialize(URL url, ResourceBundle rb) {
+    assignCheckOnENTER();
+    assignCheckOnTAB();
+  }
+  
   Account currentAccount = atm.scenebuilder.controller.A01_loginInputUserNameController.currentAccount;
   private static ArrayList<Account> currentAcountsList = atm.scenebuilder.Account.accountList; 
   private boolean isUserNameAvailable, isPasswordValid, isRealNameValid, isGenderValid, isAgeValid;
@@ -41,6 +46,7 @@ public class EditUserInfoController implements Initializable {
   @FXML TextField userNameField, password1Field, password2Field, realNameField, genderField, ageField;
   @FXML Button saveUserInfoButton;
   @FXML ImageView male, female;
+  
   
   @FXML private void checkUserName(){
     isUserNameAvailable=true;
@@ -79,19 +85,24 @@ public class EditUserInfoController implements Initializable {
   }
   @FXML private void checkGender(){
     // this method accept "male" and "female", any other Input will be treat as "other"
-    if(genderField.getText().toLowerCase().equals("male")) {
-      genderLabel.setTextFill(Color.GREEN);
-      male.setVisible(true);female.setVisible(false);//show Male
-      finalGender=genderField.getText().toLowerCase();//get the valid value
-    }
-    else if(genderField.getText().toLowerCase().equals("female")) {
-      genderLabel.setTextFill(Color.GREEN);
-      male.setVisible(false);female.setVisible(true);//show female
-      finalGender=genderField.getText().toLowerCase();//get the valid value
-    }else{
-      genderLabel.setTextFill(Color.GREEN);
-      male.setVisible(false);female.setVisible(false);//hide all
-      genderField.setText("other");finalGender="other";
+    switch (genderField.getText().toLowerCase()) {
+      case "male": case "man": 
+        genderLabel.setTextFill(Color.GREEN);
+        male.setVisible(true);female.setVisible(false);//show Male
+        finalGender=genderField.getText().toLowerCase();//get the valid value
+        break;
+        
+      case "female" :
+        genderLabel.setTextFill(Color.GREEN);
+        male.setVisible(false);female.setVisible(true);//show female
+        finalGender=genderField.getText().toLowerCase();//get the valid value
+        break;
+  
+      default:
+        genderLabel.setTextFill(Color.GREEN);
+        male.setVisible(false);female.setVisible(false);//hide all
+        genderField.setText("other");finalGender="other";
+        break;
     }
     isGenderValid=true;
   }
@@ -130,8 +141,8 @@ public class EditUserInfoController implements Initializable {
     }
   }
   
-  @FXML private void assignSaveOnENTER(){
-    TextField[] textFields = {userNameField, password1Field, password2Field, realNameField, genderField, ageField};
+  @FXML private void assignCheckOnENTER(){
+    TextField []textFields = {userNameField, password1Field, password2Field, realNameField, genderField, ageField};
     for(TextField i : textFields){
       i.setOnKeyReleased((KeyEvent keyInput) -> {
         if(keyInput.getCode().equals(KeyCode.ENTER))
@@ -142,8 +153,22 @@ public class EditUserInfoController implements Initializable {
       });
     }
   }
+
+@FXML private void assignCheckOnTAB(){
+  userNameField.setOnKeyPressed((KeyEvent keyInput) -> {
+    if (keyInput.getCode().equals(KeyCode.TAB)) {checkUserName();}});
   
-  @Override public void initialize(URL url, ResourceBundle rb) {
-    assignSaveOnENTER();
-  }  
+  password2Field.setOnKeyPressed((KeyEvent keyInput) -> {
+    if (keyInput.getCode().equals(KeyCode.TAB)) {checkPasswords();}});
+  
+  realNameField.setOnKeyPressed((KeyEvent keyInput) -> {
+    if (keyInput.getCode().equals(KeyCode.TAB)) {checkRealName();}});
+  
+  genderField.setOnKeyPressed((KeyEvent keyInput) -> {
+    if (keyInput.getCode().equals(KeyCode.TAB)) {checkGender();}});
+  
+  ageField.setOnKeyPressed((KeyEvent keyInput) -> {
+    if (keyInput.getCode().equals(KeyCode.TAB)) {checkAge();}});
+  
+  }
 }

@@ -50,6 +50,7 @@ public class B01_registerOptionController implements Initializable {
   @FXML private void clearUserPassword2(){
     userPassword2Field.clear(); toggleRegisterButton();userPassword2Field.requestFocus();}
   @FXML private void clearOrCheckTextField(){
+    // this method allows user to user keyboard shortcuts to check (clear) textField instead of using mouse
     UserNameField.setOnKeyReleased((KeyEvent keyInput) -> {
       if(keyInput.getCode().equals(KeyCode.ENTER)){checkUserName();}
       else if(keyInput.getCode().equals(KeyCode.ESCAPE)){clearUserName();}});
@@ -115,11 +116,18 @@ public class B01_registerOptionController implements Initializable {
       System.out.println("Unable to create new object");
     }
   }
+  
+  @FXML private void checkOnTAB(){
+    UserNameField.setOnKeyPressed((KeyEvent keyInput) -> {
+    if (keyInput.getCode().equals(KeyCode.TAB)) {checkUserName();}});
+  
+    userPassword2Field.setOnKeyPressed((KeyEvent keyInput) -> {
+    if (keyInput.getCode().equals(KeyCode.TAB)) {checkPasswords();}});
+  
+  }
   @Override public void initialize(URL url, ResourceBundle rb) {
-    userNameUnavailableLable .setVisible(false);
-    validLabel.setVisible(false);
-    invalidLabel.setVisible(false);
     Account.printCurrentUser();
     clearOrCheckTextField();
-  }
+    checkOnTAB();
+  }  
 }
