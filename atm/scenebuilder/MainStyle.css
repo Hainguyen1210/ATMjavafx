@@ -1,0 +1,80 @@
+/* 
+    Created on : Mar 19, 2016, 10:12:41 PM
+    Author     : Hainguyen
+*/
+
+.root{
+  -fx-background-color: white;
+}
+
+.button {
+  -fx-text-fill: white;
+  -fx-border-color: white;
+  -fx-background-color: #009900;
+  -fx-border-width: 0;
+  -fx-border-radius: 0 0 3px 3px ;
+  -fx-display-caret: true;
+  -fx-position-shape: true;
+}
+
+.button:after{
+  -fx-position: absolute;
+  -fx-animated: true;
+}
+.button:hover,
+.button:active {
+	-fx-text-fill: #009900;
+	-fx-background-color: white;
+}
+.button:focused{
+  
+}
+.TextField{
+  -fx-background-color: white;
+}
+
+.Cancel{
+  -fx-text-fill: white;
+  -fx-border-color: white;
+  -fx-background-color: red;
+}
+.Cancel:hover,
+.Cancel:active{
+  -fx-text-fill: red;
+  -fx-background-color: white;
+}
+.x{
+  -fx-text-fill: #aaff80;
+  -fx-border-color: white;
+  -fx-background-color: white;
+}
+.x:hover,
+.x:active{
+  -fx-text-fill: #009900;
+}
+
+/*-------------TABPANE------------*/
+
+.tab-pane .tab-header-background,
+.tab-pane .tab-header-area {
+  -fx-background-color: white;
+}
+.tab-pane .tab-label{
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+}
+.tab-pane .tab-header-area  .headers-region  .accountStatTab:hover .tab-container,
+.tab-pane .tab-header-area  .headers-region  .withdrawTab:hover .tab-container,
+.tab-pane .tab-header-area  .headers-region  .accountStatTab:selected .tab-container,
+.tab-pane .tab-header-area  .headers-region  .withdrawTab:selected .tab-container
+{
+  -fx-background-color: white;
+}
+.tab-pane .tab-header-area  .headers-region  .accountStatTab:hover .tab-container > .tab-label,
+.tab-pane .tab-header-area  .headers-region  .withdrawTab:hover .tab-container > .tab-label,
+.tab-pane .tab-header-area  .headers-region  .accountStatTab:selected .tab-container > .tab-label,
+.tab-pane .tab-header-area  .headers-region  .withdrawTab:selected .tab-container > .tab-label
+{
+  -fx-text-fill: #009900;
+}
+  

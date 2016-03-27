@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="455.0" stylesheets="@../MainStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="atm.scenebuilder.controller.B01_registerOptionController">
+    <children>
+      <Label alignment="CENTER" layoutX="63.0" layoutY="56.0" prefHeight="82.0" prefWidth="329.0" text="Register" textAlignment="CENTER" textFill="#009900">
+         <font><Font name="System Bold" size="26.0" /></font></Label>
+      <TextField fx:id="UserNameField" layoutX="105.0" layoutY="130.0" prefHeight="43.0" prefWidth="287.0" promptText="Enter your user name" style="-fx-background-color: white;">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="userPassword1Field" layoutX="105.0" layoutY="190.0" prefHeight="43.0" prefWidth="287.0" promptText="Enter your password" style="-fx-background-color: white;">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </PasswordField>
+      <PasswordField fx:id="userPassword2Field" layoutX="105.0" layoutY="234.0" prefHeight="43.0" prefWidth="287.0" promptText="Enter your password again" style="-fx-background-color: white;">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </PasswordField>
+      <Button fx:id="checkInputButton" layoutX="164.0" layoutY="325.0" mnemonicParsing="false" onAction="#checkButtonPressed" prefHeight="44.0" prefWidth="127.0" text="Check">
+         <font><Font name="System Bold" size="22.0" /></font></Button>
+      <Button fx:id="registerButton" layoutX="164.0" layoutY="305.0" mnemonicParsing="false" onAction="#registerButtonPressed" prefHeight="44.0" prefWidth="127.0" text="Register" visible="false">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="backButton" mnemonicParsing="false" onAction="#backToPreviousScene" prefHeight="40.0" prefWidth="60.0" text="&lt;&lt;" textFill="#7c7c7c" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="12.0">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Button>
+      <Label fx:id="userNameAvailableLable" alignment="CENTER" layoutX="169.0" layoutY="162.0" prefHeight="29.0" prefWidth="116.0" text="User name available" textFill="#2bf404" visible="false" />
+      <Label fx:id="userNameUnavailableLable" alignment="CENTER" layoutX="139.0" layoutY="162.0" prefHeight="29.0" prefWidth="177.0" text=" This user name is not available" textFill="#f50303" visible="false" />
+      <Button fx:id="clearUserNameButton" alignment="CENTER" layoutX="362.0" layoutY="130.0" mnemonicParsing="false" onAction="#clearUserName" prefHeight="44.0" prefWidth="15.0" style="-fx-background-color: white;" styleClass="x" text="X" textFill="#009900">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="clearUserPassword2Button" alignment="CENTER" layoutX="362.0" layoutY="234.0" mnemonicParsing="false" onAction="#clearUserPassword2" prefHeight="44.0" prefWidth="15.0" style="-fx-background-color: white;" styleClass="x" text="X" textFill="#009900">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="clearUserPassword1Button" alignment="CENTER" layoutX="362.0" layoutY="190.0" mnemonicParsing="false" onAction="#clearUserPassword1" prefHeight="44.0" prefWidth="15.0" style="-fx-background-color: white;" styleClass="x" text="X" textFill="#009900">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Label fx:id="invalidLabel" alignment="CENTER" layoutX="139.0" layoutY="264.0" prefHeight="29.0" prefWidth="177.0" text="Invalid" textFill="#f50303" visible="false" />
+      <Label fx:id="validLabel" alignment="CENTER" layoutX="169.0" layoutY="264.0" prefHeight="29.0" prefWidth="116.0" text="Valid" textFill="#2bf404" visible="false" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="245.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <ProgressIndicator fx:id="progressIndicator" layoutX="265.0" layoutY="123.0" prefHeight="49.0" prefWidth="72.0" progress="0.0" />
+      <Label alignment="CENTER" layoutX="137.0" layoutY="41.0" prefHeight="82.0" prefWidth="329.0" text="Welcome to Crazy ATM" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="211.0" layoutY="172.0" prefHeight="27.0" prefWidth="182.0" text="Loading user data" textFill="#5e5e5e">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
