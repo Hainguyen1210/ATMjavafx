@@ -30,7 +30,7 @@ public class B01_registerOptionController implements Initializable {
   @FXML public TextField UserNameField;
   @FXML public Label userNameAvailableLable, userNameUnavailableLable, validLabel, invalidLabel;
   @FXML public Button clearUserNameButton, clearUserPassword1Button, clearUserPassword2Button,
-          backButton, checkInputButton, registerButton;
+          backButton, registerButton;
   
   @FXML private void backToPreviousScene()throws IOException{
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
@@ -42,27 +42,33 @@ public class B01_registerOptionController implements Initializable {
     window.show();
   }
   
-  @FXML private void toggleRegisterButton(){
-    registerButton.setVisible(false);checkInputButton.setVisible(true);}
   @FXML private void clearUserName(){
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
-    UserNameField.clear(); toggleRegisterButton();UserNameField.requestFocus();}
+    UserNameField.clear(); registerButton.setVisible(false);UserNameField.requestFocus();}
   @FXML private void clearUserPassword1(){
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
-    userPassword1Field.clear(); toggleRegisterButton();userPassword1Field.requestFocus();}
+    userPassword1Field.clear(); registerButton.setVisible(false); userPassword1Field.requestFocus();}
   @FXML private void clearUserPassword2(){
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
-    userPassword2Field.clear(); toggleRegisterButton();userPassword2Field.requestFocus();}
+    userPassword2Field.clear(); registerButton.setVisible(false); userPassword2Field.requestFocus();}
   @FXML private void clearOrCheckTextField(){
     // this method allows user to user keyboard shortcuts to check (clear) textField instead of using mouse
     UserNameField.setOnKeyReleased((KeyEvent keyInput) -> {
-      if(keyInput.getCode().equals(KeyCode.ENTER)){checkUserName();}
+      if(keyInput.getCode() == KeyCode.ENTER 
+      || keyInput.getCode() == KeyCode.BACK_SPACE
+      || keyInput.getCode() == KeyCode.SPACE){checkUserName();}
       else if(keyInput.getCode().equals(KeyCode.ESCAPE)){clearUserName();}});
+    
     userPassword1Field.setOnKeyReleased((KeyEvent keyInput) -> {
-      if(keyInput.getCode().equals(KeyCode.ENTER)){checkPasswords();}
+      if(keyInput.getCode() == KeyCode.ENTER
+      || keyInput.getCode() == KeyCode.BACK_SPACE
+      || keyInput.getCode() == KeyCode.SPACE){checkPasswords();}
       else if(keyInput.getCode().equals(KeyCode.ESCAPE)){clearUserPassword1();}});
+    
     userPassword2Field.setOnKeyReleased((KeyEvent keyInput) -> {
-      if(keyInput.getCode().equals(KeyCode.ENTER)){checkPasswords();}
+      if(keyInput.getCode() == KeyCode.ENTER
+      || keyInput.getCode() == KeyCode.BACK_SPACE
+      || keyInput.getCode() == KeyCode.SPACE){checkPasswords();}
       else if(keyInput.getCode().equals(KeyCode.ESCAPE)){clearUserPassword2();}});
   }
   
@@ -79,14 +85,15 @@ public class B01_registerOptionController implements Initializable {
         userNameUnavailableLable.setVisible(true);userNameAvailableLable.setVisible(false);
         break;
       }
+    }
       if (isUserNameAvailable==true) {
         ATMjavafx.Sound.correct.stop(); ATMjavafx.Sound.correct.play();  
       } else {
         ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();
       }
-    }
     
     finalUserName=UserNameField.getText();
+    enableRegister();
   }
   @FXML private void checkPasswords(){
     if(((!userPassword1Field.getText().equals(userPassword2Field.getText())) 
@@ -94,24 +101,24 @@ public class B01_registerOptionController implements Initializable {
             || userPassword1Field.getText().contains(" ")){
       validLabel.setVisible(false);invalidLabel.setVisible(true);
       isPasswordValid=false;
+        ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();
     }else{
       validLabel.setVisible(true);invalidLabel.setVisible(false);
       isPasswordValid=true;
+        ATMjavafx.Sound.correct.stop(); ATMjavafx.Sound.correct.play();  
+        
       finalPassword=userPassword1Field.getText();
+      enableRegister();
     }
   }
   
 
-  @FXML private void checkButtonPressed(){
-    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
-    checkUserName();
-    checkPasswords();
+  @FXML private void enableRegister(){
+    // this method check both input and show the Register button
     if(isPasswordValid&&isUserNameAvailable){
-      registerButton.setVisible(true);checkInputButton.setVisible(false);// VALID
-      ATMjavafx.Sound.correct.stop(); ATMjavafx.Sound.correct.play();
+      registerButton.setVisible(true);// VALID
     }else{
-      registerButton.setVisible(false);checkInputButton.setVisible(true);// INVALID
-      ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();
+      registerButton.setVisible(false);;// INVALID
     }
   }
   @FXML private void registerButtonPressed() throws IOException{
