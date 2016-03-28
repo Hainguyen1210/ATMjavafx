@@ -29,6 +29,9 @@ public class A00_loginAndRegisterController implements Initializable {
   @FXML private Button chooseLoginOptionButton, chooseRegisterOptiontuButton;
   @FXML private void chooseLoginOption()throws IOException{
     
+    ATMjavafx.Sound.button.stop();
+    ATMjavafx.Sound.button.play();
+    
     System.out.println("choose login option");
     Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/A01_loginInputUserName.fxml"));
     Stage window=(Stage) chooseLoginOptionButton.getScene().getWindow(); // this code is to get the main window
@@ -36,6 +39,10 @@ public class A00_loginAndRegisterController implements Initializable {
     window.show();
   }
   @FXML private void chooseRegisterOption()throws IOException{
+    
+    ATMjavafx.Sound.button.stop();
+    ATMjavafx.Sound.button.play();
+    
     System.out.println("choose register option");
     Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/B01_registerOption.fxml"));
     Stage window=(Stage) chooseRegisterOptiontuButton.getScene().getWindow(); // this code is to get the main window

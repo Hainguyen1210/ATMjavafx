@@ -45,6 +45,7 @@ public class C01_atmMainMenuController implements Initializable {
           withdrawalAmountLabel, balanceAmountLabel;
   
   @FXML private void backToLogin()throws IOException{
+    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     System.out.println("back to Login & Register");
     Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/A01_loginInputUserName.fxml"));
     Stage window=(Stage) quitButton.getScene().getWindow(); // this code is to get the main window
@@ -52,6 +53,7 @@ public class C01_atmMainMenuController implements Initializable {
     window.show();
   }
   @FXML private void editUserInfo()throws IOException{
+    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     System.out.println("saving user's info");
     Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/editUserInfo.fxml"));
     Stage window=(Stage) quitButton.getScene().getWindow(); // this code is to get the main window
@@ -75,6 +77,7 @@ public class C01_atmMainMenuController implements Initializable {
   }
 
   @FXML private void depositButtonPressed(){
+    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     depositButton.setVisible(false);
     confirmDepositButton.setVisible(true);
     depositField.setVisible(true);
@@ -84,10 +87,13 @@ public class C01_atmMainMenuController implements Initializable {
     /* this method checks whether the user's input is valid or not
     if it is valid, these number will be added to the user.balance and then save it to the text file right away
     */
+    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     if (isNumber(depositField.getText())&&depositField.getText().length()>0){
+      ATMjavafx.Sound.correct.stop(); ATMjavafx.Sound.correct.play();
       currentAccount.deposit(Long.parseLong(depositField.getText()));
       checkDepositLabel.setVisible(false);
     }else{
+      ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();
       checkDepositLabel.setVisible(true);
     }
     depositField.clear();
@@ -105,6 +111,7 @@ public class C01_atmMainMenuController implements Initializable {
       trollImg.setVisible(false);
     }else{
       trollImg.setVisible(true);
+      ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();
     }
     
   }
@@ -113,12 +120,14 @@ public class C01_atmMainMenuController implements Initializable {
     for (int i=0; i < buttonList.length; i++) {
       int amountOfMoney = amountOfMoneyList[i];
       buttonList[i].setOnAction((ActionEvent e ) -> {
+        ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
         reloadWithdrawalAmount(amountOfMoney);
         
       });
     }
     //especially for withdraw all the money button
     withdrawAllButton.setOnAction((ActionEvent e ) -> {
+        ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
         withdrawalAmount = currentAccount.getUserBalance();
         remainingAmount = 0;
         withdrawalAmountLabel.setText("VND " + format.format(withdrawalAmount));
@@ -128,6 +137,7 @@ public class C01_atmMainMenuController implements Initializable {
       });
   }
   @FXML private void confirmWithdrawButtonPressed(){
+    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     if(withdrawalAmount<=balanceAmount){
       currentAccount.withdraw(withdrawalAmount);
       loadUserInfo();
@@ -137,6 +147,7 @@ public class C01_atmMainMenuController implements Initializable {
     
   }
   @FXML private void cancelWithdrawButtonPressed(){
+    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     loadUserInfo();
     toggleButtonsVisibility("showOthers");
     trollImg.setVisible(false);

@@ -55,9 +55,11 @@ public class EditUserInfoController implements Initializable {
     for(Account checkingAccount : currentAcountsList){
       if(userName.equals(currentAccount.userName)) {break;}//in case user name remain the same
       if (checkingAccount.userName.equals(userName)
-              || userName.length()<4) {
+              || userName.length()<4
+              || userNameField.getText().contains(" ")) {
         isUserNameAvailable=false;
         userNameLabel.setTextFill(Color.RED);
+        ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play(); 
         break;
       }
     }
@@ -70,12 +72,14 @@ public class EditUserInfoController implements Initializable {
       isPasswordValid=true;
       finalPassword=password1Field.getText();}//get the valid value
     else{
+      ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play(); 
       passwordLabel.setTextFill(Color.RED);
       isPasswordValid=false;
     }
   }
   @FXML private void checkRealName(){
     if(realNameField.getText().length()<3){
+      ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play(); 
       realNameLabel.setTextFill(Color.RED);
       isRealNameValid=false;}// Invalid
     else{
@@ -115,16 +119,20 @@ public class EditUserInfoController implements Initializable {
         AgeLabel.setTextFill(Color.GREEN);}
       else{
         isAgeValid=false;
-        AgeLabel.setTextFill(Color.RED);
+        AgeLabel.setTextFill(Color.RED); 
+        ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();
         }
     } 
     catch (Exception e) {
       isAgeValid=false;
       ageField.clear();
-      AgeLabel.setTextFill(Color.RED);}
+      AgeLabel.setTextFill(Color.RED);
+      ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();
+    } 
   }
   
   @FXML private void backToMain() throws IOException{
+    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     System.out.println("back to Login & Register");
     Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/C01_atmMainMenu.fxml"));
     Stage window=(Stage) saveUserInfoButton.getScene().getWindow(); // this code is to get the main window
@@ -135,10 +143,11 @@ public class EditUserInfoController implements Initializable {
     //check all the Field, If valid -> change the account's information -> save data to file
     checkUserName();checkPasswords();checkRealName();checkGender();checkAge();
     if(isUserNameAvailable&&isPasswordValid&&isRealNameValid&&isGenderValid&&isAgeValid) {
+      ATMjavafx.Sound.correct.stop(); ATMjavafx.Sound.correct.play();
       currentAccount.changeUserInfo(finalUserName, finalPassword, finalRealName, finalGender, finalAge);
       Account.saveUserData();
       backToMain();
-    }
+    } else{    ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();    }
   }
   
   @FXML private void assignCheckOnENTER(){

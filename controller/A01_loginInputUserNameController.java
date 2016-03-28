@@ -62,18 +62,27 @@ public class A01_loginInputUserNameController implements Initializable {
       else if(keyInput.getCode().equals(KeyCode.ESCAPE)){clearUserName();}
     });
   }
-  @FXML private void clearUserName(){userNameField.clear();userNameField.requestFocus();}
+  @FXML private void clearUserName(){
+    ATMjavafx.Sound.button.stop();    ATMjavafx.Sound.button.play();
+    userNameField.clear();userNameField.requestFocus();
+  }
   @FXML private void checkUserName()throws IOException{
-    // loop through user names to check
+    ATMjavafx.Sound.button.stop();    ATMjavafx.Sound.button.play();
+    
+// loop through user names to check
     for (Account currentCheckingAcount : currentAcountsList) {
       loginStatus = (userNameField.getText().equals(currentCheckingAcount.userName));
       if(loginStatus){currentAccount = currentCheckingAcount; break;}  
     }
     // set actions after checking
     if (loginStatus == true){
-        System.out.println("User name found.");//-------------------USER NAME FOUND
+      ATMjavafx.Sound.correct.stop();    ATMjavafx.Sound.correct.play();
+      
+      System.out.println("User name found.");//-------------------USER NAME FOUND  
         goToNextPage();
     }else{
+        ATMjavafx.Sound.error.stop();    ATMjavafx.Sound.error.play();
+
         System.out.println("User name not found.");//-------------------USER NAME NOT FOUND
         // set Nodes visible
         validateUserNameLabel.setVisible(true);
@@ -81,6 +90,9 @@ public class A01_loginInputUserNameController implements Initializable {
     }
   }
   @FXML private void backToPreviousScene()throws IOException{
+    
+    ATMjavafx.Sound.button.stop();    ATMjavafx.Sound.button.play();
+    
     System.out.println("back to Login & Register");
     Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/A00_loginAndRegister.fxml"));
     Stage window;
@@ -89,6 +101,9 @@ public class A01_loginInputUserNameController implements Initializable {
     window.show();
   }
   @FXML private void toRegister()throws IOException{
+    
+    ATMjavafx.Sound.button.stop();    ATMjavafx.Sound.button.play();
+    
     System.out.println("Going to the bank ");
     Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/B01_registerOption.fxml"));
     Stage window;

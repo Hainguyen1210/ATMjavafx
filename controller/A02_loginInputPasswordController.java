@@ -25,22 +25,40 @@ public class A02_loginInputPasswordController implements Initializable {
   
   // set value
   Account currentAccount = ATMjavafx.controller.A01_loginInputUserNameController.currentAccount;
+  boolean hasInstructionPlayed = false, hasPasswordFieldCleared = false;
+  int timeRemainingInt = 5;
   
-  @FXML private Label validateUserPassword;
+  @FXML private Label validateUserPassword, timeRemaining;
   @FXML private PasswordField userPasswordField;
   @FXML private Button checkUserPasswordButton, backButton, clearUserPasswordButton;
   
   @FXML private void clearUserPassword(){userPasswordField.clear();userPasswordField.requestFocus();}
   @FXML private void checkUserPassword() throws IOException{
+    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
+    
     //check the password
     if (currentAccount.getUserPassword().equals(userPasswordField.getText())){
+      ATMjavafx.Sound.bigError.stop(); 
+      ATMjavafx.Sound.correct.stop(); ATMjavafx.Sound.correct.play();
+    
         System.out.println("Correct password.");//-------------------CORRECT PASSWORD
         goToMainMenu();
     }else{
+      timeRemainingInt -= 1;
+      if(!ATMjavafx.Sound.bigError.isPlaying()){ATMjavafx.Sound.bigError.stop(); ATMjavafx.Sound.bigError.play();}
+    
         System.out.println("Incorrect password.");//-------------------INCORRECT PASSWORD
         // set Nodes visible
         validateUserPassword.setVisible(true);
+        loadTimeRemaining(timeRemainingInt);
     }
+  }
+  @FXML private void loadTimeRemaining(int timeRemaining) {
+      this.timeRemaining.setVisible(true);
+    if (timeRemaining == 1) {
+      this.timeRemaining.setText("Only one time remaining.");}
+    else{
+      this.timeRemaining.setText(timeRemaining + " times remaining");}
   }
   @FXML private void clearOrCheckTextField(){
     userPasswordField.setOnKeyReleased((KeyEvent keyInput) -> {
@@ -49,7 +67,20 @@ public class A02_loginInputPasswordController implements Initializable {
       else if(keyInput.getCode().equals(KeyCode.ESCAPE)){clearUserPassword();}
     });
   }
+  @FXML private void disableTyping(){
+    // -----------------------------------------------NESTED LOOP HERE
+    while(hasInstructionPlayed == false) {
+      userPasswordField.clear();
+      userPasswordField.setVisible(false);
+      ATMjavafx.Sound.pleaseEnterYourPassword.stop(); ATMjavafx.Sound.pleaseEnterYourPassword.play();
+      while(ATMjavafx.Sound.pleaseEnterYourPassword.isPlaying()) {      userPasswordField.clear();  } // make sure the instruction played before user enter password
+      hasInstructionPlayed = true;
+      userPasswordField.setVisible(true);  
+    }
+  }
   @FXML private void goToMainMenu()throws IOException{
+    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
+    
     System.out.println("Go to the Main Menu");
     Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/C01_atmMainMenu.fxml"));
     Stage window;
@@ -58,6 +89,9 @@ public class A02_loginInputPasswordController implements Initializable {
     window.show();
   }
   @FXML private void backToPreviousScene()throws IOException{
+    ATMjavafx.Sound.bigError.stop(); 
+    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
+    
     System.out.println("back to Login & Register");
     Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/A01_loginInputUserName.fxml"));
     Stage window=(Stage) backButton.getScene().getWindow();

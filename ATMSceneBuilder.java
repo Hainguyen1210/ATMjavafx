@@ -42,6 +42,9 @@ public class ATMSceneBuilder extends Application {
     
     //go to the Login and Register options
     window.setTitle("Hainguyen's ATM");
+    
+    ATMjavafx.Sound.playBackgoundSound();
+    
     Parent root = FXMLLoader.load(getClass().getResource("fxml/A00_loginAndRegister.fxml"));
     Scene scene1 = new Scene(root);
     scene1.getStylesheets().add // CSS
