@@ -29,7 +29,7 @@ public class C01_atmMainMenuController implements Initializable {
   long balanceAmount, withdrawalAmount,  remainingAmount;
   DecimalFormat format = new DecimalFormat(); // this object formats money's display
   Button[] buttonList;
-  int[] amountOfMoneyList = {1000, 50000,200000,  500000, 1000000, 2000000, 10000000};
+  int[] amountOfMoneyList = {1200, 55000, 200200,  555000, 1001200, 2000500, 10001000};
   
   @FXML ImageView trollImg;
   @FXML private TextField 

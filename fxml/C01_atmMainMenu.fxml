@@ -10,10 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" 
-         style="-fx-background-color: ;" stylesheets="@../MainStyle.css" tabClosingPolicy="UNAVAILABLE" 
-         tabMinHeight="30.0" tabMinWidth="275.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
-         fx:controller="ATMjavafx.controller.C01_atmMainMenuController">
+<TabPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: ;" stylesheets="@../MainStyle.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="275.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATMjavafx.controller.C01_atmMainMenuController">
    <tabs>
       <Tab style="-fx-background-color: #009900;" styleClass="accountStatTab" text="Account Status">
          <content>
@@ -183,11 +180,11 @@
       </Tab>
       <Tab closable="false" style="-fx-background-color: #009900;" styleClass="withdrawTab" text="Withdrawal">
          <content>
-            <SplitPane dividerPositions="0.5" prefHeight="289.0" prefWidth="410.0" style="-fx-background-color: white;">
+            <SplitPane dividerPositions="0.5" prefHeight="287.0" prefWidth="471.0" style="-fx-background-color: white;">
               <items>
                   <VBox fillWidth="false" maxWidth="150.0" minWidth="-Infinity" prefHeight="369.0" prefWidth="150.0">
                      <children>
-                        <Button fx:id="withdraw1kButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="165.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="357.0" text="VND 1,000">
+                        <Button fx:id="withdraw1kButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="165.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="357.0" text="VND 1,200">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -195,7 +192,7 @@
                               <Insets bottom="5.0" left="5.0" top="5.0" />
                            </padding>
                         </Button>
-                        <Button fx:id="withdraw50kButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="357.0" text="VND 50,000">
+                        <Button fx:id="withdraw50kButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="357.0" text="VND 55,000">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -206,7 +203,7 @@
                               <Insets />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="withdraw200kButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="41.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="357.0" text="VND 200,000">
+                        <Button fx:id="withdraw200kButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="41.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="357.0" text="VND 200,200">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -214,7 +211,7 @@
                               <Insets bottom="5.0" left="5.0" top="5.0" />
                            </padding>
                         </Button>
-                        <Button fx:id="withdraw500kButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="72.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="357.0" text="VND 500,000">
+                        <Button fx:id="withdraw500kButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="72.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="357.0" text="VND 555,000">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -222,7 +219,7 @@
                               <Insets bottom="5.0" left="5.0" top="5.0" />
                            </padding>
                         </Button>
-                        <Button fx:id="withdraw1000kButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="103.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="357.0" text="VND 1,000,000">
+                        <Button fx:id="withdraw1000kButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="103.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="357.0" text="VND 1,001,200">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -230,7 +227,7 @@
                               <Insets bottom="5.0" left="5.0" top="5.0" />
                            </padding>
                         </Button>
-                        <Button fx:id="withdraw2000kButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="357.0" text="VND 2,000,000">
+                        <Button fx:id="withdraw2000kButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="357.0" text="VND 2,000,500">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -238,7 +235,7 @@
                               <Insets bottom="5.0" left="5.0" top="5.0" />
                            </padding>
                         </Button>
-                        <Button fx:id="withdraw10000kButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="165.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="357.0" text="VND 10,000,000">
+                        <Button fx:id="withdraw10000kButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="165.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="357.0" text="VND 10,001,000">
                            <font>
                               <Font size="15.0" />
                            </font>
