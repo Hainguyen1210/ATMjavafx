@@ -10,7 +10,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../MainStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="atm.scenebuilder.controller.A01_loginInputUserNameController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../MainStyle.css" 
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATMjavafx.controller.A01_loginInputUserNameController">
     <children>
       <Label alignment="CENTER" layoutX="136.0" layoutY="51.0" prefHeight="82.0" prefWidth="329.0" text="Login" textAlignment="CENTER" textFill="#009900">
          <font><Font name="System Bold" size="26.0" /></font></Label>

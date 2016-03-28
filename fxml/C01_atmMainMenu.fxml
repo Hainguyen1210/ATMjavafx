@@ -10,7 +10,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: ;" stylesheets="@../MainStyle.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="275.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="atm.scenebuilder.controller.C01_atmMainMenuController">
+<TabPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" 
+         style="-fx-background-color: ;" stylesheets="@../MainStyle.css" tabClosingPolicy="UNAVAILABLE" 
+         tabMinHeight="30.0" tabMinWidth="275.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+         fx:controller="ATMjavafx.controller.C01_atmMainMenuController">
    <tabs>
       <Tab style="-fx-background-color: #009900;" styleClass="accountStatTab" text="Account Status">
          <content>

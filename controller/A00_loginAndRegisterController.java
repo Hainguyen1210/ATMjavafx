@@ -25,9 +25,10 @@ import javafx.stage.Stage;
  *
  * @author Hainguyen
  */
-public class A00_loginAndRegisterController implements Initializable {  
+public class A00_loginAndRegisterController implements Initializable {
   @FXML private Button chooseLoginOptionButton, chooseRegisterOptiontuButton;
   @FXML private void chooseLoginOption()throws IOException{
+    
     System.out.println("choose login option");
     Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/A01_loginInputUserName.fxml"));
     Stage window=(Stage) chooseLoginOptionButton.getScene().getWindow(); // this code is to get the main window
