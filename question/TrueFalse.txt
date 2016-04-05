@@ -1,0 +1,36 @@
+If you cry in space the tears just stick to your face.
+true
+The letter T is the most common in the English Language
+false
+The strongest muscle in proportion to its size in the human body is the tongue
+true
+A duck's quack doesn't echo
+true
+A pregnant goldfish is called a twit
+true
+Women can read smaller print than men; Men can hear better than women
+false
+Every day more money is printed for monopoly than the US Treasury
+true
+Michael Jordan was cut from his high school basketball team
+true
+Lightning never strikes in the same place twice.
+false
+If you cut an earthworm in half, both halves can regrow their body.
+false
+Adults have fewer bones than babies do.
+true
+Napoleon Bonaparte was extremely short.
+false
+Goldfish only have a memory of three seconds.
+false
+Your fingernails and hair keep growing after you die.
+false
+Birds are dinosaurs.
+true
+Water spirals down the plughole in opposite directions in the northern and southern hemispheres.
+false
+Buzz Aldrin was the first man to urinate on the moon.
+true
+Humans can't breathe and swallow at the same time.
+true

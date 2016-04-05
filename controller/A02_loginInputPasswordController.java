@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,6 +18,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /*
 this class checks user's password and navigate him to the main ATM menu
@@ -28,29 +30,36 @@ public class A02_loginInputPasswordController implements Initializable {
   boolean hasInstructionPlayed = false, hasPasswordFieldCleared = false;
   int timeRemainingInt = 5;
   
-  @FXML private Label validateUserPassword, timeRemaining;
+  @FXML private Label validateUserPassword, timeRemaining, waitForSoundLabel;
+  
   @FXML private PasswordField userPasswordField;
   @FXML private Button checkUserPasswordButton, backButton, clearUserPasswordButton;
-  
+  static FadeTransition fade;
   @FXML private void clearUserPassword(){userPasswordField.clear();userPasswordField.requestFocus();}
   @FXML private void checkUserPassword() throws IOException{
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     
-    //check the password
-    if (currentAccount.getUserPassword().equals(userPasswordField.getText())){
-      ATMjavafx.Sound.bigError.stop(); 
-      ATMjavafx.Sound.correct.stop(); ATMjavafx.Sound.correct.play();
-    
-        System.out.println("Correct password.");//-------------------CORRECT PASSWORD
-        goToMainMenu();
-    }else{
-      timeRemainingInt -= 1;
-      if(!ATMjavafx.Sound.bigError.isPlaying()){ATMjavafx.Sound.bigError.stop(); ATMjavafx.Sound.bigError.play();}
-    
-        System.out.println("Incorrect password.");//-------------------INCORRECT PASSWORD
-        // set Nodes visible
-        validateUserPassword.setVisible(true);
-        loadTimeRemaining(timeRemainingInt);
+    if (!ATMjavafx.Sound.bigError.isPlaying()) { // User have to wait for the sound to reInput the password
+      //check the password
+      if (currentAccount.getUserPassword().equals(userPasswordField.getText())){
+        ATMjavafx.Sound.bigError.stop(); 
+        ATMjavafx.Sound.correct.stop(); ATMjavafx.Sound.correct.play();
+
+          System.out.println("Correct password.");//-------------------CORRECT PASSWORD
+          goToMainMenu();
+      }else{
+        timeRemainingInt -= 1;
+        if(!ATMjavafx.Sound.bigError.isPlaying()){ATMjavafx.Sound.bigError.stop(); ATMjavafx.Sound.bigError.play();}
+
+          System.out.println("Incorrect password.");//-------------------INCORRECT PASSWORD
+          // set Nodes visible
+          validateUserPassword.setVisible(true);
+          loadTimeRemaining(timeRemainingInt);
+      }
+    } else{
+      System.out.println("fade");     
+      fade.play();
+//      fade.setFromValue(1.0);fade.setToValue(0.0);
     }
   }
   @FXML private void loadTimeRemaining(int timeRemaining) {
@@ -102,6 +111,11 @@ public class A02_loginInputPasswordController implements Initializable {
     validateUserPassword.setVisible(false);
     System.out.println("Current account's password: " + currentAccount.getUserPassword());
     clearOrCheckTextField();
+    
+    //setup transition
+    fade = new FadeTransition(Duration.millis(1000), waitForSoundLabel);
+    fade.setAutoReverse(true);fade.setCycleCount(1);fade.setFromValue(1.0);fade.setToValue(0.0);
+    fade.play();
   }  
   
 }
