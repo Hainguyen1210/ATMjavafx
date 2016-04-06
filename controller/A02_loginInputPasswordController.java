@@ -53,24 +53,28 @@ public class A02_loginInputPasswordController implements Initializable {
           goToMainMenu();
       }else{ //-------------------------------------------------------------------------------------------------------------INCORRECT PASSWORD
         switch(timeRemainingInt) {
-          case 3: if(!ATMjavafx.Sound.bigError.isPlaying()){ATMjavafx.Sound.bigError.stop(); ATMjavafx.Sound.bigError.play();};
-                      break;
-          case 2: if(!ATMjavafx.Sound.kidsLaughter.isPlaying()){ATMjavafx.Sound.kidsLaughter.stop(); ATMjavafx.Sound.kidsLaughter.play();};
-                      break;
-          case 1: if(!ATMjavafx.Sound.boo.isPlaying()){ATMjavafx.Sound.boo.stop(); ATMjavafx.Sound.boo.play();};
-                      break;
+          case 3: 
+            if(!ATMjavafx.Sound.bigError.isPlaying()){ATMjavafx.Sound.bigError.stop(); ATMjavafx.Sound.bigError.play();};
+            break;
+          case 2: 
+            if(!ATMjavafx.Sound.kidsLaughter.isPlaying()){ATMjavafx.Sound.kidsLaughter.stop(); ATMjavafx.Sound.kidsLaughter.play();};
+            break;
+          case 1: 
+            this.timeRemaining.setText("Your account is being locked.");
+            if(!ATMjavafx.Sound.boo.isPlaying()){ATMjavafx.Sound.boo.stop(); ATMjavafx.Sound.boo.play();};
+            break;
+                      
         }
         timeRemainingInt -= 1;
         
 
-          System.out.println("Incorrect password.");
+          System.out.println("Incorrect password." + timeRemainingInt);
           // set Nodes visible
           validateUserPassword.setVisible(true);
           loadTimeRemaining(timeRemainingInt);
           
           // delete User
           if (timeRemainingInt == 0){  //-------------------Nested loop here
-              System.out.println("time remaining = 0");
             try {
               System.out.println("deleting User");
               while (ATMjavafx.Sound.boo.isPlaying()) {}  //wait for the sound to finish
@@ -92,12 +96,15 @@ public class A02_loginInputPasswordController implements Initializable {
   }
   @FXML private void loadTimeRemaining(int timeRemaining) {
       this.timeRemaining.setVisible(true);
-    switch (timeRemaining) {
+    switch (timeRemainingInt) {
       case 1:
         this.timeRemaining.setText("Only one time remaining.");
         break;
       case 0:
-        this.timeRemaining.setText("Your account is being locked.");
+        System.out.println("ATMjavafx.controller.A0");
+        this.timeRemaining.setText("Only one time asdfasdf.");
+        System.out.println("ATMjavafx.controller.A0");
+//        this.timeRemaining.setText("Your account is being locked.");
         break;
       default:
         this.timeRemaining.setText(timeRemaining + " times remaining");
