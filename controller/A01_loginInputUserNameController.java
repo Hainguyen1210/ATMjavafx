@@ -78,7 +78,7 @@ public class A01_loginInputUserNameController implements Initializable {
     if (loginStatus == true){
       ATMjavafx.Sound.correct.stop();    ATMjavafx.Sound.correct.play();
       
-      System.out.println("User name found.");//-------------------USER NAME FOUND  
+      System.out.println("User name found. " + currentAccount.userName);//-------------------USER NAME FOUND  
         goToNextPage();
     }else{
         ATMjavafx.Sound.error.stop();    ATMjavafx.Sound.error.play();

@@ -28,7 +28,7 @@ public class A02_loginInputPasswordController implements Initializable {
   // set value
   Account currentAccount = ATMjavafx.controller.A01_loginInputUserNameController.currentAccount;
   boolean hasInstructionPlayed = false, hasPasswordFieldCleared = false;
-  int timeRemainingInt = 5;
+  int timeRemainingInt = 3;
   
   @FXML private Label validateUserPassword, timeRemaining, waitForSoundLabel;
   
@@ -39,35 +39,70 @@ public class A02_loginInputPasswordController implements Initializable {
   @FXML private void checkUserPassword() throws IOException{
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     
-    if (!ATMjavafx.Sound.bigError.isPlaying()) { // User have to wait for the sound to reInput the password
+    // User have to wait for the sound to reInput the password
+    if (  !ATMjavafx.Sound.bigError.isPlaying() &&  
+          !ATMjavafx.Sound.kidsLaughter.isPlaying() &&
+          !ATMjavafx.Sound.boo.isPlaying() )
+    {
       //check the password
-      if (currentAccount.getUserPassword().equals(userPasswordField.getText())){
-        ATMjavafx.Sound.bigError.stop(); 
+      if (currentAccount.getUserPassword().equals(userPasswordField.getText())){    //-------------------CORRECT PASSWORD
+        ATMjavafx.Sound.bigError.stop();ATMjavafx.Sound.kidsLaughter.stop(); ATMjavafx.Sound.boo.stop(); 
         ATMjavafx.Sound.correct.stop(); ATMjavafx.Sound.correct.play();
 
-          System.out.println("Correct password.");//-------------------CORRECT PASSWORD
+          System.out.println("Correct password.");
           goToMainMenu();
-      }else{
+      }else{ //-------------------------------------------------------------------------------------------------------------INCORRECT PASSWORD
+        switch(timeRemainingInt) {
+          case 3: if(!ATMjavafx.Sound.bigError.isPlaying()){ATMjavafx.Sound.bigError.stop(); ATMjavafx.Sound.bigError.play();};
+                      break;
+          case 2: if(!ATMjavafx.Sound.kidsLaughter.isPlaying()){ATMjavafx.Sound.kidsLaughter.stop(); ATMjavafx.Sound.kidsLaughter.play();};
+                      break;
+          case 1: if(!ATMjavafx.Sound.boo.isPlaying()){ATMjavafx.Sound.boo.stop(); ATMjavafx.Sound.boo.play();};
+                      break;
+        }
         timeRemainingInt -= 1;
-        if(!ATMjavafx.Sound.bigError.isPlaying()){ATMjavafx.Sound.bigError.stop(); ATMjavafx.Sound.bigError.play();}
+        
 
-          System.out.println("Incorrect password.");//-------------------INCORRECT PASSWORD
+          System.out.println("Incorrect password.");
           // set Nodes visible
           validateUserPassword.setVisible(true);
           loadTimeRemaining(timeRemainingInt);
+          
+          // delete User
+          if (timeRemainingInt == 0){  //-------------------Nested loop here
+              System.out.println("time remaining = 0");
+            try {
+              System.out.println("deleting User");
+              while (ATMjavafx.Sound.boo.isPlaying()) {}  //wait for the sound to finish
+              ATMjavafx.Sound.boo.stop();
+              currentAccount.deleteThisUser();
+              Account.saveUserData();
+
+              ATMjavafx.Sound.gameOver.stop(); ATMjavafx.Sound.gameOver.play();
+              backToPreviousScene();              
+            } catch (Exception e) {
+            System.out.println("failed to delete user");
+            }
+          }
       }
     } else{
-      System.out.println("fade");     
+      System.out.println("wait");     
       fade.play();
-//      fade.setFromValue(1.0);fade.setToValue(0.0);
     }
   }
   @FXML private void loadTimeRemaining(int timeRemaining) {
       this.timeRemaining.setVisible(true);
-    if (timeRemaining == 1) {
-      this.timeRemaining.setText("Only one time remaining.");}
-    else{
-      this.timeRemaining.setText(timeRemaining + " times remaining");}
+    switch (timeRemaining) {
+      case 1:
+        this.timeRemaining.setText("Only one time remaining.");
+        break;
+      case 0:
+        this.timeRemaining.setText("Your account is being locked.");
+        break;
+      default:
+        this.timeRemaining.setText(timeRemaining + " times remaining");
+        break;
+    }
   }
   @FXML private void clearOrCheckTextField(){
     userPasswordField.setOnKeyReleased((KeyEvent keyInput) -> {
@@ -77,7 +112,7 @@ public class A02_loginInputPasswordController implements Initializable {
     });
   }
   @FXML private void disableTyping(){
-    // -----------------------------------------------NESTED LOOP HERE
+    //this function disable user from typing while rthe instruction playing
     while(hasInstructionPlayed == false) {
       userPasswordField.clear();
       userPasswordField.setVisible(false);
@@ -86,7 +121,7 @@ public class A02_loginInputPasswordController implements Initializable {
       hasInstructionPlayed = true;
       userPasswordField.setVisible(true);  
     }
-  }
+  }    // -------------------------------NESTED LOOP HERE
   @FXML private void goToMainMenu()throws IOException{
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     
@@ -113,7 +148,7 @@ public class A02_loginInputPasswordController implements Initializable {
     clearOrCheckTextField();
     
     //setup transition
-    fade = new FadeTransition(Duration.millis(1000), waitForSoundLabel);
+    fade = new FadeTransition(Duration.millis(2000), waitForSoundLabel);
     fade.setAutoReverse(true);fade.setCycleCount(1);fade.setFromValue(1.0);fade.setToValue(0.0);
     fade.play();
   }  

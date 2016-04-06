@@ -110,4 +110,5 @@ public class Account {
       System.err.println("can not save the file.");
     }
   }
+  public void deleteThisUser(){accountList.remove(this);}
 }
