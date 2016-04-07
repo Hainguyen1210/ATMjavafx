@@ -128,6 +128,7 @@ public class B01_registerOptionController implements Initializable {
     backToPreviousScene();
   }
   @FXML private void creatAccount(){
+    checkUserName();checkPasswords(); // check the last time
     try {
       if(isPasswordValid&&isUserNameAvailable){
         currentAcountsList.add(new Account(finalUserName, finalPassword, 0, "unknown", 18, "unknown"));
