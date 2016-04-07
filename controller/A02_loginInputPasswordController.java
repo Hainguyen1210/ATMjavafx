@@ -101,10 +101,7 @@ public class A02_loginInputPasswordController implements Initializable {
         this.timeRemaining.setText("Only one time remaining.");
         break;
       case 0:
-        System.out.println("ATMjavafx.controller.A0");
-        this.timeRemaining.setText("Only one time asdfasdf.");
-        System.out.println("ATMjavafx.controller.A0");
-//        this.timeRemaining.setText("Your account is being locked.");
+        this.timeRemaining.setText("Your account is being locked.");
         break;
       default:
         this.timeRemaining.setText(timeRemaining + " times remaining");
