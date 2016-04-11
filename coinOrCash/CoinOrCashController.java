@@ -27,7 +27,7 @@ public class CoinOrCashController implements Initializable {
   
   @FXML private void chooseCash(){
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
-    if (Math.random() < 0.2) {    ATMjavafx.Sound.cashOut.stop(); ATMjavafx.Sound.cashOut.play(); }
+    if (Math.random() > 0.2) {    ATMjavafx.Sound.cashOut.stop(); ATMjavafx.Sound.cashOut.play(); }
     else {    ATMjavafx.Sound.coinsOut.stop(); ATMjavafx.Sound.coinsOut.play();}
     
     this.window = (Stage) cash.getScene().getWindow();
@@ -35,7 +35,7 @@ public class CoinOrCashController implements Initializable {
   }
   @FXML private void chooseCoin(){
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
-    if (Math.random() < 0.5) {    ATMjavafx.Sound.coinsOut.stop(); ATMjavafx.Sound.coinsOut.play(); }
+    if (Math.random() > 0.2) {    ATMjavafx.Sound.coinsOut.stop(); ATMjavafx.Sound.coinsOut.play(); }
     else {    ATMjavafx.Sound.cashOut.stop(); ATMjavafx.Sound.cashOut.play();}
     
     this.window = (Stage) cash.getScene().getWindow();

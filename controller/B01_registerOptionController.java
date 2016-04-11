@@ -131,7 +131,10 @@ public class B01_registerOptionController implements Initializable {
     checkUserName();checkPasswords(); // check the last time
     try {
       if(isPasswordValid&&isUserNameAvailable){
-        currentAcountsList.add(new Account(finalUserName, finalPassword, 0, "unknown", 18, "unknown"));
+        currentAcountsList.add(new Account(
+                finalUserName, finalPassword, 0, "unknown", 18, "unknown", 
+                0, 0, 0, 0, 99999999,
+                0, 0, 0, 0, 99999999));
         System.out.println("new object created.");
       }
     } catch (Exception e) {

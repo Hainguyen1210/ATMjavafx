@@ -115,16 +115,18 @@ public class A02_loginInputPasswordController implements Initializable {
       else if(keyInput.getCode().equals(KeyCode.ESCAPE)){clearUserPassword();}
     });
   }
-  @FXML private void disableTyping(){
+  @FXML private void disableTyping() throws InterruptedException{
     //this function disable user from typing while rthe instruction playing
     while(hasInstructionPlayed == false) {
-      userPasswordField.clear();
       userPasswordField.setVisible(false);
       ATMjavafx.Sound.pleaseEnterYourPassword.stop(); ATMjavafx.Sound.pleaseEnterYourPassword.play();
-      while(ATMjavafx.Sound.pleaseEnterYourPassword.isPlaying()) {      userPasswordField.clear();  } // make sure the instruction played before user enter password
+      while(ATMjavafx.Sound.pleaseEnterYourPassword.isPlaying()) {      Thread.sleep(2000); userPasswordField.clear();  } // make sure the instruction played before user enter password
+      
       hasInstructionPlayed = true;
       userPasswordField.setVisible(true);  
     }
+      Thread.sleep(1000);
+      userPasswordField.clear();
   }    // -------------------------------NESTED LOOP HERE
   @FXML private void goToMainMenu()throws IOException{
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();

@@ -29,12 +29,10 @@ public class A01_loginInputUserNameController implements Initializable {
     toRegister.setVisible(false);
     
     System.out.println("checking user name...");
-    printCurrentUsers();
+    Account.printCurrentUser();
     clearOrCheckTextField();
   }  
   
-  // get array list of Accounts from the Account class
-  private static ArrayList<Account> currentAcountsList = ATMjavafx.Account.accountList; 
   public static Account currentAccount;
   private static boolean loginStatus;
   
@@ -47,47 +45,6 @@ public class A01_loginInputUserNameController implements Initializable {
     Stage window=(Stage) checkUserNameButton.getScene().getWindow(); // this code is to get the main window
     window.setScene(new Scene(root));
     window.show();
-  }
-  @FXML private void printCurrentUsers(){
-    System.out.println("Current accounts:");
-    for (Account currentAccount : currentAcountsList) {
-      System.out.println("  "+currentAccount.userName);
-    }
-  }
-  @FXML private void clearOrCheckTextField(){
-    userNameField.setOnKeyReleased((KeyEvent keyInput) -> {
-      if(keyInput.getCode().equals(KeyCode.ENTER)){try {checkUserName();
-        } catch (IOException ex) {Logger.getLogger(A01_loginInputUserNameController.class.getName()).log(Level.SEVERE, null, ex);}
-    }
-      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){clearUserName();}
-    });
-  }
-  @FXML private void clearUserName(){
-    ATMjavafx.Sound.button.stop();    ATMjavafx.Sound.button.play();
-    userNameField.clear();userNameField.requestFocus();
-  }
-  @FXML private void checkUserName()throws IOException{
-    ATMjavafx.Sound.button.stop();    ATMjavafx.Sound.button.play();
-    
-// loop through user names to check
-    for (Account currentCheckingAcount : currentAcountsList) {
-      loginStatus = (userNameField.getText().equals(currentCheckingAcount.userName));
-      if(loginStatus){currentAccount = currentCheckingAcount; break;}  
-    }
-    // set actions after checking
-    if (loginStatus == true){
-      ATMjavafx.Sound.correct.stop();    ATMjavafx.Sound.correct.play();
-      
-      System.out.println("User name found. " + currentAccount.userName);//-------------------USER NAME FOUND  
-        goToNextPage();
-    }else{
-        ATMjavafx.Sound.error.stop();    ATMjavafx.Sound.error.play();
-
-        System.out.println("User name not found.");//-------------------USER NAME NOT FOUND
-        // set Nodes visible
-        validateUserNameLabel.setVisible(true);
-        toRegister.setVisible(true);
-    }
   }
   @FXML private void backToPreviousScene()throws IOException{
     
@@ -112,4 +69,41 @@ public class A01_loginInputUserNameController implements Initializable {
     window.show();
   }
   
+  @FXML private void clearOrCheckTextField(){
+    userNameField.setOnKeyReleased((KeyEvent keyInput) -> {
+      if(keyInput.getCode().equals(KeyCode.ENTER)){try {checkUserName();
+        } catch (IOException ex) {Logger.getLogger(A01_loginInputUserNameController.class.getName()).log(Level.SEVERE, null, ex);}
+    }
+      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){clearUserName();}
+    });
+  }
+  @FXML private void clearUserName(){
+    ATMjavafx.Sound.button.stop();    ATMjavafx.Sound.button.play();
+    userNameField.clear();userNameField.requestFocus();
+  }
+  @FXML private void checkUserName()throws IOException{
+    ATMjavafx.Sound.button.stop();    ATMjavafx.Sound.button.play();
+    
+// loop through user names to check
+    for (Account currentCheckingAcount : Account.accountList) {
+      
+      loginStatus = (userNameField.getText().equals(currentCheckingAcount.userName));
+      if(loginStatus){currentAccount = currentCheckingAcount; break;}  
+    }
+    // set actions after checking
+    if (loginStatus == true){
+      ATMjavafx.Sound.correct.stop();    ATMjavafx.Sound.correct.play();
+      
+      System.out.println("User name found. " + currentAccount.userName);//-------------------USER NAME FOUND  
+        goToNextPage();
+    }else{
+        ATMjavafx.Sound.error.stop();    ATMjavafx.Sound.error.play();
+
+        System.out.println("User name not found.");//-------------------USER NAME NOT FOUND
+        // set Nodes visible
+        validateUserNameLabel.setVisible(true);
+        toRegister.setVisible(true);
+    }
+  }
+
 }
