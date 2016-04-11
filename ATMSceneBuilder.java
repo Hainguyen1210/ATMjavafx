@@ -27,8 +27,8 @@ List of features:
 
 package ATMjavafx;
 
-import ATMjavafx.question.Question;
 import ATMjavafx.question.TrueFalseQuestion;
+import ATMjavafx.question.multipleChoiceQuestion;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -38,18 +38,12 @@ import javafx.stage.Stage;
 public class ATMSceneBuilder extends Application {
   
   public static void main(String[] args) {launch(args);}
-  @Override public void start(Stage window) throws Exception {
-    //load questions
-    System.out.println("X");
-    TrueFalseQuestion.loadData();
-    for (Question question : TrueFalseQuestion.TrueFalseQList) {
-      System.out.println("X");
-      System.out.println(question.questionTitle);
-    }
+  @Override public void start(Stage window) throws Exception { 
+    
     //load user data
-    System.out.println("Loading user data.");
+    System.out.print("Loading user data ");
     try {Account.loadUserData();}catch (Exception e) {}
-    System.out.println("Loading user data finished.");
+    System.out.println("finished.");
     
     //go to the Login and Register options
     window.setTitle("Hainguyen's ATM");

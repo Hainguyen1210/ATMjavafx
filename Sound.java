@@ -26,9 +26,7 @@ public class Sound {
   public static AudioClip background = new AudioClip( Sound.class.getResource("lib/background.wav").toExternalForm());
   
   public static void playBackgoundSound(){
-    int s = INDEFINITE;
-    background.setCycleCount(s);
-    background.stop();
-    background.play();
+    background.setCycleCount(INDEFINITE);
+    background.stop();    background.play();
   } 
 }

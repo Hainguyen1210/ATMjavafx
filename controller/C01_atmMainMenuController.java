@@ -17,7 +17,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /*
 this controller currently allows users to view their information, deposit money
@@ -26,7 +28,8 @@ this controller currently allows users to view their information, deposit money
 public class C01_atmMainMenuController implements Initializable {
    // set value
   Account currentAccount = ATMjavafx.controller.A01_loginInputUserNameController.currentAccount;
-  long balanceAmount, withdrawalAmount,  remainingAmount;
+  private long balanceAmount,  remainingAmount;
+  public static long withdrawalAmount;
   DecimalFormat format = new DecimalFormat(); // this object formats money's display
   Button[] buttonList;
   int[] amountOfMoneyList = {1200, 55000, 200200,  555000, 1001200, 2000500, 10001000};
@@ -44,6 +47,15 @@ public class C01_atmMainMenuController implements Initializable {
           ownerGenderLabel, ownerAgeLabel, checkDepositLabel, remainingAmountLabel, 
           withdrawalAmountLabel, balanceAmountLabel;
   
+  public boolean isNumber(String input){
+    /*check whether input is a number or not*/
+    try {
+      Long.parseLong(input);
+    } catch (Exception e) {
+      return false;
+    }
+    return true;
+  }
   @FXML private void backToLogin()throws IOException{
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     System.out.println("back to Login & Register");
@@ -52,6 +64,21 @@ public class C01_atmMainMenuController implements Initializable {
     window.setScene(new Scene(root));
     window.show();
   }
+  @FXML private void toQuestion()throws IOException{
+    System.out.println("to security questions");
+    
+    Stage mainWindow=(Stage) quitButton.getScene().getWindow(); // this code is to get the main window
+    
+    Stage popupWindow = new Stage();
+    popupWindow.initModality(Modality.APPLICATION_MODAL);
+    popupWindow.initStyle(StageStyle.UNDECORATED);
+    popupWindow.initOwner(mainWindow);
+    
+    Parent root = FXMLLoader.load(ATMjavafx.question.QuestionController.class.getResource("question.fxml"));
+    popupWindow.setScene(new Scene(root));
+    popupWindow.show(); 
+  }
+  
   @FXML private void editUserInfo()throws IOException{
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     System.out.println("saving user's info");
@@ -102,20 +129,20 @@ public class C01_atmMainMenuController implements Initializable {
     // save to txt
     Account.saveUserData();
   }
-  @FXML private void reloadWithdrawalAmount(int amount) {
-    if (amount <= remainingAmount){
-      withdrawalAmount+=amount;
-      remainingAmount = balanceAmount-withdrawalAmount;
-      withdrawalAmountLabel.setText("VND " + format.format(withdrawalAmount));
-      remainingAmountLabel.setText("VND " + format.format(remainingAmount));
-      trollImg.setVisible(false);
-    }else{
-      trollImg.setVisible(true);
-      ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();
-    }
+  @FXML private void assignKeyboard(){
+    //this function allow user to use keyboard instead of mouse to deposit or clear
+    depositButton.setOnKeyReleased((KeyEvent keyInput) -> {
+      if(keyInput.getCode().equals(KeyCode.ENTER)){depositButtonPressed();}});
+    
+    depositField.setOnKeyReleased((KeyEvent keyInput) -> {
+      if(keyInput.getCode().equals(KeyCode.ENTER)){confirmDepositButtonPressed();}
+      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){depositField.clear();}});
     
   }
+  
   @FXML private void assignButtonEvents(){
+    /*this function assign withdrawal events on each withdrawal button*/
+    
     // assign event to all the withdraw buttons
     for (int i=0; i < buttonList.length; i++) {
       int amountOfMoney = amountOfMoneyList[i];
@@ -136,30 +163,6 @@ public class C01_atmMainMenuController implements Initializable {
         trollImg.setVisible(false);
       });
   }
-  @FXML private void confirmWithdrawButtonPressed(){
-    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
-    if(withdrawalAmount<=balanceAmount){
-      currentAccount.withdraw(withdrawalAmount);
-      loadUserInfo();
-      Account.saveUserData();
-      toggleButtonsVisibility("showOthers");
-    }
-    
-  }
-  @FXML private void cancelWithdrawButtonPressed(){
-    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
-    loadUserInfo();
-    toggleButtonsVisibility("showOthers");
-    trollImg.setVisible(false);
-  }
-  @FXML private void confirmOrCancelDeposit(){
-    depositField.setOnKeyReleased((KeyEvent keyInput) -> {
-      if(keyInput.getCode().equals(KeyCode.ENTER)){confirmDepositButtonPressed();}
-      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){depositField.clear();}});
-    
-    depositButton.setOnKeyReleased((KeyEvent keyInput) -> {
-      if(keyInput.getCode().equals(KeyCode.ENTER)){depositButtonPressed();}});
-  }
   @FXML private void toggleButtonsVisibility(String showWithdrawAll_showOthers ){
     //this button hide all other withdrawal options when user want to withdrawAll his money
     if ("showWithdrawAll".equals(showWithdrawAll_showOthers )) {
@@ -168,23 +171,43 @@ public class C01_atmMainMenuController implements Initializable {
     for(Button i : buttonList) {i.setDisable(false);}
     }
   }
-  
-  public boolean isNumber(String input){
-    /*check whether input is a number or not*/
-    try {
-      Long.parseLong(input);
-    } catch (Exception e) {
-      return false;
+  @FXML private void reloadWithdrawalAmount(int amount) {
+    if (amount <= remainingAmount){
+      withdrawalAmount+=amount;
+      remainingAmount = balanceAmount-withdrawalAmount;
+      withdrawalAmountLabel.setText("VND " + format.format(withdrawalAmount));
+      remainingAmountLabel.setText("VND " + format.format(remainingAmount));
+      trollImg.setVisible(false);
+    }else{
+      trollImg.setVisible(true);
+      ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();
     }
-    return true;
+    
   }
+  @FXML private void confirmWithdrawButtonPressed() throws IOException{
+    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
+    if(withdrawalAmount<=balanceAmount && withdrawalAmount > 0){
+      System.out.println("before");
+      toQuestion();
+      System.out.println("after");
+      currentAccount.withdraw(withdrawalAmount);    
+      Account.saveUserData();
+      loadUserInfo();
+      toggleButtonsVisibility("showOthers");  
+    }
+  }
+  @FXML private void cancelWithdrawButtonPressed(){
+    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
+    loadUserInfo();
+    toggleButtonsVisibility("showOthers");
+    trollImg.setVisible(false);
+  }
+  
   @Override public void initialize(URL url, ResourceBundle rb) {
     loadUserInfo();
     buttonList = new Button [] {withdraw1kButton, withdraw50kButton, withdraw200kButton, withdraw500kButton, withdraw1000kButton, withdraw2000kButton, withdraw10000kButton};
     assignButtonEvents();
-    confirmOrCancelDeposit();
+    assignKeyboard();
   }
-  
- 
 }
 

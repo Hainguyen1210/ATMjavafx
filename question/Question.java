@@ -12,8 +12,6 @@ package ATMjavafx.question;
 public class Question {
   
   public String questionTitle;
-  public String questionAnswer;
-  public boolean isTrueFalseQ;
   
   public Question(String title) {
     this.questionTitle = title;

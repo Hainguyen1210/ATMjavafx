@@ -5,17 +5,16 @@
  */
 package ATMjavafx.question;
 
-import ATMjavafx.ATMSceneBuilder;
-import java.io.File;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
  * @author Hainguyen
  */
 public class TrueFalseQuestion extends Question{
-  public static ArrayList<Question> TrueFalseQList = new ArrayList<>();
+  public static ArrayList<TrueFalseQuestion> TrueFalseQList = new ArrayList<>();
   public boolean isTrue; 
   
   public TrueFalseQuestion(String title, boolean isTrue) {
@@ -28,22 +27,16 @@ public class TrueFalseQuestion extends Question{
     boolean isTrueBoolean = false;
     
     try {
-      File data = new File(ATMjavafx.question.Question.class.getResource("TrueFalse.txt").toExternalForm());
-      Scanner input = new Scanner(data);
-    System.out.println(data);
-    System.out.println(question);
-      while(input.hasNextLine()) {
-        question = input.next();
-        isTrueString = input.next();
+      BufferedReader input = new BufferedReader(new InputStreamReader(Question.class.getResourceAsStream("TrueFalse.txt")));
+      while(true) {
+        question = input.readLine();  if (question == null) {break;}
+        isTrueString = input.readLine();
+        isTrueBoolean = isTrueString.equals("true");
         
-        System.out.println(question);
-        System.out.println(isTrueString);
-        System.out.println(isTrueBoolean);
-        
-        if (isTrueString.equals("true")) {    isTrueBoolean = true;   }
         TrueFalseQList.add(new TrueFalseQuestion(question, isTrueBoolean));
       }
     } catch (Exception e) {
+      System.err.println("cannot load the file  TrueFalse.txt successfully.");
     }
   }
 }

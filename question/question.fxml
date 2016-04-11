@@ -1,11 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATMjavafx.question.QuestionController">
-    
+<AnchorPane id="AnchorPane" prefHeight="250.0" prefWidth="600.0" stylesheets="@../MainStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATMjavafx.question.QuestionController">
+   <children>
+      <Label fx:id="questionTiltleLabel" alignment="CENTER" layoutX="102.0" layoutY="3.0" prefHeight="93.0" prefWidth="396.0" text="Answer the security question to complete the transaction" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="triggerQuestionButton" layoutX="253.0" layoutY="125.0" mnemonicParsing="false" onAction="#triggerQuestion" prefHeight="35.0" prefWidth="95.0" text="OK">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="trueButton" layoutX="112.0" layoutY="125.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="189.0" styleClass="Cancel" text="True" visible="false">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="falseButton" layoutX="301.0" layoutY="125.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="189.0" text="False" visible="false">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="B" layoutX="76.0" layoutY="108.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="189.0" text="B" visible="false">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="A" layoutX="360.0" layoutY="108.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="189.0" text="A" visible="false">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="C" layoutX="76.0" layoutY="160.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="189.0" text="C" visible="false">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="D" layoutX="360.0" layoutY="160.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="189.0" text="D" visible="false">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+   </children>
 </AnchorPane>
