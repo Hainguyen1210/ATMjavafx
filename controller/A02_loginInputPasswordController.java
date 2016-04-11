@@ -125,8 +125,6 @@ public class A02_loginInputPasswordController implements Initializable {
       hasInstructionPlayed = true;
       userPasswordField.setVisible(true);  
     }
-      Thread.sleep(1000);
-      userPasswordField.clear();
   }    // -------------------------------NESTED LOOP HERE
   @FXML private void goToMainMenu()throws IOException{
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
