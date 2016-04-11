@@ -5,16 +5,19 @@
  */
 package ATMjavafx.question;
 
-import ATMjavafx.Account;
-import ATMjavafx.controller.C01_atmMainMenuController;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -24,8 +27,6 @@ import javafx.stage.Stage;
 public class QuestionController implements Initializable {
   boolean isTrueFalseQuestion = false, userChoiceTF;
   private int userChoiceMC;
-  private final long withdrawalAmount = C01_atmMainMenuController.withdrawalAmount;
-  Account currentAccount = ATMjavafx.controller.A01_loginInputUserNameController.currentAccount;
   
   TrueFalseQuestion currentTFQuestion;
   multipleChoiceQuestion currentMCQuestion;
@@ -37,7 +38,21 @@ public class QuestionController implements Initializable {
           trueButton, falseButton,
           A, B, C, D;
   
+  @FXML private void toCoinOrCash() {
+    // switch to another scene to ask whether user like to receive cash or coin
+        System.out.println("to Coin or Cash");
+    
+    try {
+      Parent root = FXMLLoader.load(ATMjavafx.coinOrCash.CoinOrCashController.class.getResource("coinOrCash.fxml"));
+      window.setScene(new Scene(root));
+    } catch (Exception e) {
+      System.err.println("can not load the coinOrCash.fxml");
+    }
+    window.show(); 
+  }
+  
   @FXML private void triggerQuestion(){
+    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     this.window = (Stage) questionTiltleLabel.getScene().getWindow();
     
     triggerQuestionButton.setVisible(false);
@@ -78,12 +93,13 @@ public class QuestionController implements Initializable {
     D.setText("D. " + currentMCQuestion.D);
   }
   @FXML private void checkAnswer(){
+    // check whether user choice is true then move to the next scene, if not , another question will be loaded.
     if (isTrueFalseQuestion) {
-      if(userChoiceTF == currentTFQuestion.isTrue) {        window.close();      } 
-      else {        triggerQuestion();      }
+      if(userChoiceTF == currentTFQuestion.isTrue) {     ATMjavafx.Sound.correct.stop(); ATMjavafx.Sound.correct.play();   toCoinOrCash();     } 
+      else {        ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();   triggerQuestion();      }
     } else {
-      if(userChoiceMC == currentMCQuestion.answer) {    window.close();      } 
-      else {        triggerQuestion();      }
+      if(userChoiceMC == currentMCQuestion.answer) { ATMjavafx.Sound.correct.stop(); ATMjavafx.Sound.correct.play();   toCoinOrCash();      } 
+      else {        ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();   triggerQuestion();      }
     }
   }
   @FXML private void assignButton(){

@@ -187,9 +187,7 @@ public class C01_atmMainMenuController implements Initializable {
   @FXML private void confirmWithdrawButtonPressed() throws IOException{
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     if(withdrawalAmount<=balanceAmount && withdrawalAmount > 0){
-      System.out.println("before");
       toQuestion();
-      System.out.println("after");
       currentAccount.withdraw(withdrawalAmount);    
       Account.saveUserData();
       loadUserInfo();

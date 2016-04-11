@@ -21,7 +21,8 @@ public class Sound {
   public static AudioClip boo = new AudioClip( Sound.class.getResource("lib/boo.wav").toExternalForm());
   public static AudioClip gameOver = new AudioClip( Sound.class.getResource("lib/gameOver.mp3").toExternalForm());
   public static AudioClip printer = new AudioClip( Sound.class.getResource("lib/printer.wav").toExternalForm());
-  public static AudioClip moneyOut = new AudioClip( Sound.class.getResource("lib/moneyOut.wav").toExternalForm());
+  public static AudioClip coinsOut = new AudioClip( Sound.class.getResource("lib/coinsOut.wav").toExternalForm());
+  public static AudioClip cashOut = new AudioClip( Sound.class.getResource("lib/cashOut.wav").toExternalForm());
   public static AudioClip pleaseEnterYourPassword = new AudioClip( Sound.class.getResource("lib/pleaseEnterYourPassword.wav").toExternalForm());
   public static AudioClip background = new AudioClip( Sound.class.getResource("lib/background.wav").toExternalForm());
   
