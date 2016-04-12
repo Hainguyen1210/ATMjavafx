@@ -3,7 +3,6 @@ package ATMjavafx.controller;
 import ATMjavafx.Account;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,12 +17,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-/*
-this controller allows user to create new account with userName and passwords
-program also check the validity of user's input
+/**
+ * 1. check user inputs and create new account if they are VALID
+ * 2. support keyboard shortcuts
+ *      TAB or ENTER to check
+ *      ESCAPE to clear
 */
 public class B01_registerOptionController implements Initializable {
-  private static ArrayList<Account> currentAcountsList = ATMjavafx.Account.accountList; 
   private static boolean isUserNameAvailable, isPasswordValid;
   private static String finalUserName, finalPassword;
   @FXML public PasswordField userPassword1Field, userPassword2Field;
@@ -77,7 +77,7 @@ public class B01_registerOptionController implements Initializable {
     userNameAvailableLable.setVisible(true);userNameUnavailableLable.setVisible(false);
     String currentUserName = UserNameField.getText();
     
-    for(Account checkingAccount : currentAcountsList){
+    for(Account checkingAccount : Account.accountList){
       if (checkingAccount.userName.equals(currentUserName)
               || currentUserName.length()<4
               || currentUserName.contains(" ")) {
@@ -118,7 +118,7 @@ public class B01_registerOptionController implements Initializable {
     if(isPasswordValid&&isUserNameAvailable){
       registerButton.setVisible(true);// VALID
     }else{
-      registerButton.setVisible(false);;// INVALID
+      registerButton.setVisible(false);// INVALID
     }
   }
   @FXML private void registerButtonPressed() throws IOException{
@@ -131,7 +131,7 @@ public class B01_registerOptionController implements Initializable {
     checkUserName();checkPasswords(); // check the last time
     try {
       if(isPasswordValid&&isUserNameAvailable){
-        currentAcountsList.add(new Account(
+        Account.accountList.add(new Account(
                 finalUserName, finalPassword, 0, "unknown", 18, "unknown", 
                 0, 0, 0, 0, 99999999,
                 0, 0, 0, 0, 99999999));

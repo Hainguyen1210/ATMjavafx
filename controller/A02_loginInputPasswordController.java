@@ -20,8 +20,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-/*
-this class checks user's password and navigate him to the main ATM menu
+/**
+* 1. this class checks user's password 
+*       if password is VALID user will be navigated to the main ATM menu
+*       if user enter wrong password 3 times, his account will be deleted
+* 2. can use Keyboard shortcuts
+*       ENTER to check password
+*       ESCAPE to clear the Field ( if Field is already clear, back to previous scene instead )
 */
 public class A02_loginInputPasswordController implements Initializable {
   
@@ -35,8 +40,34 @@ public class A02_loginInputPasswordController implements Initializable {
   @FXML private PasswordField userPasswordField;
   @FXML private Button checkUserPasswordButton, backButton, clearUserPasswordButton;
   static FadeTransition fade;
-  @FXML private void clearUserPassword(){userPasswordField.clear();userPasswordField.requestFocus();}
+  
+  
+  @FXML private void goToMainMenu()throws IOException{
+    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
+    
+    System.out.println("Go to the Main Menu");
+    Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/C01_atmMainMenu.fxml"));
+    Stage window;
+    window=(Stage) checkUserPasswordButton.getScene().getWindow();
+    window.setScene(new Scene(root));
+    window.show();
+  }
+  @FXML private void backToPreviousScene()throws IOException{
+    ATMjavafx.Sound.bigError.stop(); 
+    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
+    
+    System.out.println("back to Login & Register");
+    Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/A01_loginInputUserName.fxml"));
+    Stage window=(Stage) backButton.getScene().getWindow();
+    window.setScene(new Scene(root));
+    window.show();
+  }
+  
   @FXML private void checkUserPassword() throws IOException{
+    /*
+    this function checks userPassword.    
+    Each wrong input user have to wait for the sound effect then reenter another password
+    */
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     
     // User have to wait for the sound to reInput the password
@@ -74,17 +105,17 @@ public class A02_loginInputPasswordController implements Initializable {
           loadTimeRemaining(timeRemainingInt);
           
           // delete User
-          if (timeRemainingInt == 0){  //-------------------Nested loop here
+          if (timeRemainingInt == 0){  
             try {
               System.out.println("deleting User");
-              while (ATMjavafx.Sound.boo.isPlaying()) {}  //wait for the sound to finish
+              while (ATMjavafx.Sound.boo.isPlaying()) {   Thread.sleep(1000);}  //wait for the sound to finish
               ATMjavafx.Sound.boo.stop();
               currentAccount.deleteThisUser();
               Account.saveUserData();
 
               ATMjavafx.Sound.gameOver.stop(); ATMjavafx.Sound.gameOver.play();
               backToPreviousScene();              
-            } catch (Exception e) {
+            } catch (InterruptedException | IOException e) {
             System.out.println("failed to delete user");
             }
           }
@@ -94,6 +125,7 @@ public class A02_loginInputPasswordController implements Initializable {
       fade.play();
     }
   }
+  
   @FXML private void loadTimeRemaining(int timeRemaining) {
       this.timeRemaining.setVisible(true);
     switch (timeRemainingInt) {
@@ -108,15 +140,23 @@ public class A02_loginInputPasswordController implements Initializable {
         break;
     }
   }
+  @FXML private void clearPasswordField(){
+    ATMjavafx.Sound.button.stop();    ATMjavafx.Sound.button.play();
+    userPasswordField.clear();userPasswordField.requestFocus();
+  }
   @FXML private void clearOrCheckTextField(){
+    // Enable keyboard shortcuts
     userPasswordField.setOnKeyReleased((KeyEvent keyInput) -> {
       if(keyInput.getCode().equals(KeyCode.ENTER)){try {checkUserPassword();}
       catch (IOException ex) {Logger.getLogger(A02_loginInputPasswordController.class.getName()).log(Level.SEVERE, null, ex);}}
-      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){clearUserPassword();}
+      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){
+        //if the TextField is empty, back to previous Scene instead
+        if(userPasswordField.getLength()<1) {   try {backToPreviousScene();} catch (IOException ex) {Logger.getLogger(A01_loginInputUserNameController.class.getName()).log(Level.SEVERE, null, ex);  }}
+        else{clearPasswordField();}}
     });
   }
   @FXML private void disableTyping() throws InterruptedException{
-    //this function disable user from typing while rthe instruction playing
+    //this function disable user from typing while the instruction playing
     while(hasInstructionPlayed == false) {
       userPasswordField.setVisible(false);
       ATMjavafx.Sound.pleaseEnterYourPassword.stop(); ATMjavafx.Sound.pleaseEnterYourPassword.play();
@@ -126,26 +166,6 @@ public class A02_loginInputPasswordController implements Initializable {
       userPasswordField.setVisible(true);  
     }
   }    // -------------------------------NESTED LOOP HERE
-  @FXML private void goToMainMenu()throws IOException{
-    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
-    
-    System.out.println("Go to the Main Menu");
-    Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/C01_atmMainMenu.fxml"));
-    Stage window;
-    window=(Stage) checkUserPasswordButton.getScene().getWindow();
-    window.setScene(new Scene(root));
-    window.show();
-  }
-  @FXML private void backToPreviousScene()throws IOException{
-    ATMjavafx.Sound.bigError.stop(); 
-    ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
-    
-    System.out.println("back to Login & Register");
-    Parent root = FXMLLoader.load(ATMjavafx.ATMSceneBuilder.class.getResource("fxml/A01_loginInputUserName.fxml"));
-    Stage window=(Stage) backButton.getScene().getWindow();
-    window.setScene(new Scene(root));
-    window.show();
-  }
   @Override public void initialize(URL url, ResourceBundle rb) {
     validateUserPassword.setVisible(false);
     System.out.println("Current account's password: " + currentAccount.getUserPassword());

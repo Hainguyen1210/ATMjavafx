@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ATMjavafx.controller;
 
 import ATMjavafx.Account;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +32,6 @@ public class EditUserInfoController implements Initializable {
   }
   
   Account currentAccount = ATMjavafx.controller.A01_loginInputUserNameController.currentAccount;
-  private static ArrayList<Account> currentAcountsList = ATMjavafx.Account.accountList; 
   private boolean isUserNameAvailable, isPasswordValid, isRealNameValid, isGenderValid, isAgeValid;
   private String finalUserName, finalPassword, finalRealName, finalGender;
   private int finalAge;
@@ -52,7 +45,7 @@ public class EditUserInfoController implements Initializable {
     isUserNameAvailable=true;
     userNameLabel.setTextFill(Color.GREEN);
     String userName = userNameField.getText().replaceAll("\\s+","");
-    for(Account checkingAccount : currentAcountsList){
+    for(Account checkingAccount : Account.accountList){
       if(userName.equals(currentAccount.userName)) {break;}//in case user name remain the same
       if (checkingAccount.userName.equals(userName)
               || userName.length()<4

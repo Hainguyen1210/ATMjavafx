@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ATMjavafx.controller;
 
 import java.io.IOException;
@@ -16,16 +11,20 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
  * FXML Controller class
- *
- * @author Hainguyen
+ * 1. ask user whether want to choose Login or Register
+ * 2. can use keyboard shortcuts ENTER to Login
+ * 3. Enable or Disable annoying background sound effect
  */
 public class A00_loginAndRegisterController implements Initializable {
+  @FXML ImageView mute1, unmute2, mute3, unmute4;
+  
   @FXML private Button chooseLoginOptionButton, chooseRegisterOptiontuButton;
   @FXML private void chooseLoginOption()throws IOException{
     
@@ -62,6 +61,26 @@ public class A00_loginAndRegisterController implements Initializable {
     });
   }
             
+  @FXML private void mute1Pressed(){
+    ATMjavafx.Sound.button.stop();ATMjavafx.Sound.button.play();
+    mute1.setVisible(false);unmute2.setVisible(true);
+    ATMjavafx.Sound.background.stop();
+  }
+  @FXML private void unmute2Pressed(){
+    ATMjavafx.Sound.button.stop();ATMjavafx.Sound.button.play();
+    unmute2.setVisible(false);mute3.setVisible(true);
+    ATMjavafx.Sound.playBackgoundSound();
+  }
+  @FXML private void mute3Pressed(){
+    ATMjavafx.Sound.button.stop();ATMjavafx.Sound.button.play();
+    mute3.setVisible(false);unmute4.setVisible(true);
+    ATMjavafx.Sound.background.stop();
+  }
+  @FXML private void unmute4Pressed(){
+    ATMjavafx.Sound.button.stop();ATMjavafx.Sound.button.play();
+    unmute4.setVisible(false);mute1.setVisible(true);
+    ATMjavafx.Sound.playBackgoundSound();
+  }
 
   @Override public void initialize(URL url, ResourceBundle rb) {
     enterOnFocus();
