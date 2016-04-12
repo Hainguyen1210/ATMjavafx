@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ATMjavafx.coinOrCash;
 
 import java.net.URL;
@@ -12,16 +7,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-/**
+/*
  * FXML Controller class
- *
- * @author Hainguyen
+ Ask user whether withdraw cash or coins
  */
 public class CoinOrCashController implements Initializable {
-
-  /**
-   * Initializes the controller class.
-   */
   Stage window;
   @FXML ImageView coin, cash;
   
@@ -43,8 +33,6 @@ public class CoinOrCashController implements Initializable {
   }
   
   @Override
-  public void initialize(URL url, ResourceBundle rb) {
-    // TODO
-  }  
+  public void initialize(URL url, ResourceBundle rb) {}  
   
 }

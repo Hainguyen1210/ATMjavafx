@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ATMjavafx.controller;
 
 import ATMjavafx.Account;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,9 +21,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
- *
- * @author Hainguyen
+ * 1. check user inputs and edit user's information
+ * 2. can use keyboard shortcuts
+ *      ENTER / TAB to check 
  */
 public class EditUserInfoController implements Initializable {
   @Override public void initialize(URL url, ResourceBundle rb) {
@@ -38,7 +32,6 @@ public class EditUserInfoController implements Initializable {
   }
   
   Account currentAccount = ATMjavafx.controller.A01_loginInputUserNameController.currentAccount;
-  private static ArrayList<Account> currentAcountsList = ATMjavafx.Account.accountList; 
   private boolean isUserNameAvailable, isPasswordValid, isRealNameValid, isGenderValid, isAgeValid;
   private String finalUserName, finalPassword, finalRealName, finalGender;
   private int finalAge;
@@ -52,7 +45,7 @@ public class EditUserInfoController implements Initializable {
     isUserNameAvailable=true;
     userNameLabel.setTextFill(Color.GREEN);
     String userName = userNameField.getText().replaceAll("\\s+","");
-    for(Account checkingAccount : currentAcountsList){
+    for(Account checkingAccount : Account.accountList){
       if(userName.equals(currentAccount.userName)) {break;}//in case user name remain the same
       if (checkingAccount.userName.equals(userName)
               || userName.length()<4
@@ -150,20 +143,8 @@ public class EditUserInfoController implements Initializable {
     } else{    ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();    }
   }
   
-  @FXML private void assignCheckOnENTER(){
-    TextField []textFields = {userNameField, password1Field, password2Field, realNameField, genderField, ageField};
-    for(TextField i : textFields){
-      i.setOnKeyReleased((KeyEvent keyInput) -> {
-        if(keyInput.getCode().equals(KeyCode.ENTER))
-        {
-          try {saveUserInfo();}
-          catch (IOException ex) {Logger.getLogger(EditUserInfoController.class.getName()).log(Level.SEVERE, null, ex);}
-        }
-      });
-    }
-  }
-
-@FXML private void assignCheckOnTAB(){
+  @FXML private void assignCheckOnTAB(){
+    // check user input on each TAB
   userNameField.setOnKeyPressed((KeyEvent keyInput) -> {
     if (keyInput.getCode().equals(KeyCode.TAB)) {checkUserName();}});
   
@@ -179,5 +160,18 @@ public class EditUserInfoController implements Initializable {
   ageField.setOnKeyPressed((KeyEvent keyInput) -> {
     if (keyInput.getCode().equals(KeyCode.TAB)) {checkAge();}});
   
+  }
+  @FXML private void assignCheckOnENTER(){
+    // check all user's inputs on ENTER
+    TextField []textFields = {userNameField, password1Field, password2Field, realNameField, genderField, ageField};
+    for(TextField i : textFields){
+      i.setOnKeyReleased((KeyEvent keyInput) -> {
+        if(keyInput.getCode().equals(KeyCode.ENTER))
+        {
+          try {saveUserInfo();}
+          catch (IOException ex) {Logger.getLogger(EditUserInfoController.class.getName()).log(Level.SEVERE, null, ex);}
+        }
+      });
+    }
   }
 }

@@ -8,9 +8,10 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /*
-form new account
-Load from text file and Create new account object, add them to array list
-Save all object from list and save them to text file
+1. Load from text file and Create new account object, add them to array list
+2. Save all object from list and save them to text file
+3. Access & Edit user's information
+4. Record statistics
  */
 public class Account {
   //this array will contain Account objects 
@@ -67,13 +68,12 @@ public class Account {
     this.userBalance -= moneyToWithdraw;
     updateStatisticsWithdraw(moneyToWithdraw);
   }
+  
   public String getUserPassword(){return this.userPassword;}
   public String getUserRealName(){return this.userRealName;}
   public String getUserGender(){return this.userGender;}
   public int getUserAge(){return this.userAge;}
   public long getUserBalance(){return this.userBalance;}
-  
-
   
   public static void loadUserData(){
     /*

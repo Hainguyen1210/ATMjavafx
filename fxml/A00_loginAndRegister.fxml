@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -8,8 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../MainStyle.css"
-            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATMjavafx.controller.A00_loginAndRegisterController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../MainStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATMjavafx.controller.A00_loginAndRegisterController">
    <children>
       <Label alignment="CENTER" layoutX="136.0" layoutY="51.0" prefHeight="82.0" prefWidth="329.0" text="Welcome to Crazy ATM" textAlignment="CENTER" textFill="#009900">
          <font><Font name="System Bold" size="26.0" /></font>
@@ -20,5 +20,25 @@
       <Button fx:id="chooseRegisterOptiontuButton" layoutX="175.0" layoutY="232.0" mnemonicParsing="false" onAction="#chooseRegisterOption" prefHeight="49.0" prefWidth="251.0" text="Register">
          <font><Font name="System Bold" size="22.0" /></font>
       </Button>
+      <ImageView fx:id="mute1" fitHeight="31.0" fitWidth="36.0" layoutX="14.0" layoutY="14.0" onMouseReleased="#mute1Pressed" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lib/mute.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="unmute2" fitHeight="31.0" fitWidth="36.0" layoutX="555.0" layoutY="355.0" onMouseReleased="#unmute2Pressed" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../lib/unmute.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="mute3" fitHeight="31.0" fitWidth="36.0" layoutX="555.0" layoutY="14.0" onMouseReleased="#mute3Pressed" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../lib/mute.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="unmute4" fitHeight="31.0" fitWidth="36.0" layoutX="14.0" layoutY="355.0" onMouseReleased="#unmute4Pressed" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../lib/unmute.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -21,9 +21,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-/*
-this controller currently allows users to view their information, deposit money
-***this controller will have more functions, such as: edit user's information, withdraw money, 
+/**
+ * 1. Withdraw and Deposit money
+ * 2. Collect statistic
+ * 3. Edit user Information
+ * 4. can user keyboard shortcuts
+ *      ENTER to confirm deposit
+ *      ESCAPE to clear input Field
 */
 public class C01_atmMainMenuController implements Initializable {
    // set value

@@ -3,8 +3,9 @@ package ATMjavafx.controller;
 import ATMjavafx.Account;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,12 +19,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-/*
-this controller allows user to create new account with userName and passwords
-program also check the validity of user's input
+/**
+ * 1. check user inputs and create new account if they are VALID
+ * 2. support keyboard shortcuts
+ *      TAB / ENTER / SPACE to check
+ *      ESCAPE to clear
 */
 public class B01_registerOptionController implements Initializable {
-  private static ArrayList<Account> currentAcountsList = ATMjavafx.Account.accountList; 
   private static boolean isUserNameAvailable, isPasswordValid;
   private static String finalUserName, finalPassword;
   @FXML public PasswordField userPassword1Field, userPassword2Field;
@@ -53,23 +55,38 @@ public class B01_registerOptionController implements Initializable {
     userPassword2Field.clear(); registerButton.setVisible(false); userPassword2Field.requestFocus();}
   @FXML private void clearOrCheckTextField(){
     // this method allows user to user keyboard shortcuts to check (clear) textField instead of using mouse
+    
     UserNameField.setOnKeyReleased((KeyEvent keyInput) -> {
       if(keyInput.getCode() == KeyCode.ENTER 
       || keyInput.getCode() == KeyCode.BACK_SPACE
+      || keyInput.getCode() == KeyCode.TAB
       || keyInput.getCode() == KeyCode.SPACE){checkUserName();}
-      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){clearUserName();}});
+      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){
+        if (UserNameField.getLength() < 1) {try {backToPreviousScene();} catch (IOException ex) {Logger.getLogger(A01_loginInputUserNameController.class.getName()).log(Level.SEVERE, null, ex);  }}
+        else {clearUserName();}
+      }
+    });
     
     userPassword1Field.setOnKeyReleased((KeyEvent keyInput) -> {
       if(keyInput.getCode() == KeyCode.ENTER
       || keyInput.getCode() == KeyCode.BACK_SPACE
+      || keyInput.getCode() == KeyCode.TAB
       || keyInput.getCode() == KeyCode.SPACE){checkPasswords();}
-      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){clearUserPassword1();}});
+      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){
+        if (userPassword1Field.getLength() < 1) {try {backToPreviousScene();} catch (IOException ex) {Logger.getLogger(A01_loginInputUserNameController.class.getName()).log(Level.SEVERE, null, ex);  }}
+        else {clearUserName();}}
+    });
     
     userPassword2Field.setOnKeyReleased((KeyEvent keyInput) -> {
       if(keyInput.getCode() == KeyCode.ENTER
       || keyInput.getCode() == KeyCode.BACK_SPACE
+      || keyInput.getCode() == KeyCode.TAB
       || keyInput.getCode() == KeyCode.SPACE){checkPasswords();}
-      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){clearUserPassword2();}});
+      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){
+        if (userPassword2Field.getLength() < 1) {try {backToPreviousScene();} catch (IOException ex) {Logger.getLogger(A01_loginInputUserNameController.class.getName()).log(Level.SEVERE, null, ex);  }}
+        else {clearUserName();}
+      }
+    });
   }
   
   @FXML private void checkUserName(){
@@ -77,7 +94,7 @@ public class B01_registerOptionController implements Initializable {
     userNameAvailableLable.setVisible(true);userNameUnavailableLable.setVisible(false);
     String currentUserName = UserNameField.getText();
     
-    for(Account checkingAccount : currentAcountsList){
+    for(Account checkingAccount : Account.accountList){
       if (checkingAccount.userName.equals(currentUserName)
               || currentUserName.length()<4
               || currentUserName.contains(" ")) {
@@ -111,14 +128,13 @@ public class B01_registerOptionController implements Initializable {
       enableRegister();
     }
   }
-  
 
   @FXML private void enableRegister(){
     // this method check both input and show the Register button
     if(isPasswordValid&&isUserNameAvailable){
       registerButton.setVisible(true);// VALID
     }else{
-      registerButton.setVisible(false);;// INVALID
+      registerButton.setVisible(false);// INVALID
     }
   }
   @FXML private void registerButtonPressed() throws IOException{
@@ -131,7 +147,7 @@ public class B01_registerOptionController implements Initializable {
     checkUserName();checkPasswords(); // check the last time
     try {
       if(isPasswordValid&&isUserNameAvailable){
-        currentAcountsList.add(new Account(
+        Account.accountList.add(new Account(
                 finalUserName, finalPassword, 0, "unknown", 18, "unknown", 
                 0, 0, 0, 0, 99999999,
                 0, 0, 0, 0, 99999999));
@@ -142,17 +158,8 @@ public class B01_registerOptionController implements Initializable {
     }
   }
   
-  @FXML private void checkOnTAB(){
-    UserNameField.setOnKeyPressed((KeyEvent keyInput) -> {
-    if (keyInput.getCode().equals(KeyCode.TAB)) {checkUserName();}});
-  
-    userPassword2Field.setOnKeyPressed((KeyEvent keyInput) -> {
-    if (keyInput.getCode().equals(KeyCode.TAB)) {checkPasswords();}});
-  
-  }
   @Override public void initialize(URL url, ResourceBundle rb) {
     Account.printCurrentUser();
     clearOrCheckTextField();
-    checkOnTAB();
   }  
 }

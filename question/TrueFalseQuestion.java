@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ATMjavafx.question;
 
 import java.io.BufferedReader;
@@ -10,8 +5,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- *
- * @author Hainguyen
+ * load TrueFalse questions from text file, create new object and put them to an ArrayList
  */
 public class TrueFalseQuestion extends Question{
   public static ArrayList<TrueFalseQuestion> TrueFalseQList = new ArrayList<>();
