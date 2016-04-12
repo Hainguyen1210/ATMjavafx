@@ -19,8 +19,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
-This controller allow user to input user name, it will check whether that user name is available or not 
- */
+* 1. This controller allow user to input user name, it will check whether that user name is available or not
+*   if NOT, Register options will appear
+* 2. can use Keyboard shortcuts
+*     ENTER to check user name
+*     ESCAPE to clear the Field
+*/
 public class A01_loginInputUserNameController implements Initializable {
   @Override public void initialize(URL url, ResourceBundle rb) {
     //HIDE NODES
@@ -73,7 +77,11 @@ public class A01_loginInputUserNameController implements Initializable {
       if(keyInput.getCode().equals(KeyCode.ENTER)){try {checkUserName();
         } catch (IOException ex) {Logger.getLogger(A01_loginInputUserNameController.class.getName()).log(Level.SEVERE, null, ex);}
     }
-      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){clearUserName();}
+      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){
+        //if the TextField is empty, back to previous Scene instead
+        if(userNameField.getLength()<1) {   try {backToPreviousScene();} catch (IOException ex) {Logger.getLogger(A01_loginInputUserNameController.class.getName()).log(Level.SEVERE, null, ex);  }}
+        else{clearUserName();}
+      }
     });
   }
   @FXML private void clearUserName(){
