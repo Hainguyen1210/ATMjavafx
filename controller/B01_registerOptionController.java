@@ -53,41 +53,6 @@ public class B01_registerOptionController implements Initializable {
   @FXML private void clearUserPassword2(){
     ATMjavafx.Sound.button.stop(); ATMjavafx.Sound.button.play();
     userPassword2Field.clear(); registerButton.setVisible(false); userPassword2Field.requestFocus();}
-  @FXML private void clearOrCheckTextField(){
-    // this method allows user to user keyboard shortcuts to check (clear) textField instead of using mouse
-    
-    UserNameField.setOnKeyReleased((KeyEvent keyInput) -> {
-      if(keyInput.getCode() == KeyCode.ENTER 
-      || keyInput.getCode() == KeyCode.BACK_SPACE
-      || keyInput.getCode() == KeyCode.TAB
-      || keyInput.getCode() == KeyCode.SPACE){checkUserName();}
-      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){
-        if (UserNameField.getLength() < 1) {try {backToPreviousScene();} catch (IOException ex) {Logger.getLogger(A01_loginInputUserNameController.class.getName()).log(Level.SEVERE, null, ex);  }}
-        else {clearUserName();}
-      }
-    });
-    
-    userPassword1Field.setOnKeyReleased((KeyEvent keyInput) -> {
-      if(keyInput.getCode() == KeyCode.ENTER
-      || keyInput.getCode() == KeyCode.BACK_SPACE
-      || keyInput.getCode() == KeyCode.TAB
-      || keyInput.getCode() == KeyCode.SPACE){checkPasswords();}
-      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){
-        if (userPassword1Field.getLength() < 1) {try {backToPreviousScene();} catch (IOException ex) {Logger.getLogger(A01_loginInputUserNameController.class.getName()).log(Level.SEVERE, null, ex);  }}
-        else {clearUserName();}}
-    });
-    
-    userPassword2Field.setOnKeyReleased((KeyEvent keyInput) -> {
-      if(keyInput.getCode() == KeyCode.ENTER
-      || keyInput.getCode() == KeyCode.BACK_SPACE
-      || keyInput.getCode() == KeyCode.TAB
-      || keyInput.getCode() == KeyCode.SPACE){checkPasswords();}
-      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){
-        if (userPassword2Field.getLength() < 1) {try {backToPreviousScene();} catch (IOException ex) {Logger.getLogger(A01_loginInputUserNameController.class.getName()).log(Level.SEVERE, null, ex);  }}
-        else {clearUserName();}
-      }
-    });
-  }
   
   @FXML private void checkUserName(){
     isUserNameAvailable=true;
@@ -129,6 +94,53 @@ public class B01_registerOptionController implements Initializable {
     }
   }
 
+  @FXML private void userNameCheckOnType(){
+    if(UserNameField.getLength() >= 4) {checkUserName();  }  
+  }
+  @FXML private void clearOrCheckTextField(){
+    // this method allows user to user keyboard shortcuts to check (clear) textField instead of using mouse
+
+    UserNameField.setOnKeyPressed((KeyEvent keyInput) -> {
+      if(keyInput.getCode() == KeyCode.ENTER 
+      || keyInput.getCode() == KeyCode.BACK_SPACE
+      || keyInput.getCode() == KeyCode.SPACE){checkUserName();}
+      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){
+        if (UserNameField.getLength() < 1) {try {backToPreviousScene();} catch (IOException ex) {Logger.getLogger(A01_loginInputUserNameController.class.getName()).log(Level.SEVERE, null, ex);  }}
+        else {clearUserName();}
+      }
+    });
+    userPassword1Field.setOnKeyPressed((KeyEvent keyInput) -> {
+      if(keyInput.getCode() == KeyCode.ENTER
+      || keyInput.getCode() == KeyCode.BACK_SPACE
+      || keyInput.getCode() == KeyCode.SPACE){checkPasswords();}
+      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){
+        if (userPassword1Field.getLength() < 1) {try {backToPreviousScene();} catch (IOException ex) {Logger.getLogger(A01_loginInputUserNameController.class.getName()).log(Level.SEVERE, null, ex);  }}
+        else {clearUserPassword1();}}
+    });
+    userPassword2Field.setOnKeyPressed((KeyEvent keyInput) -> {
+      if(keyInput.getCode() == KeyCode.ENTER
+      || keyInput.getCode() == KeyCode.BACK_SPACE
+      || keyInput.getCode() == KeyCode.SPACE){checkPasswords();}
+      else if(keyInput.getCode().equals(KeyCode.ESCAPE)){
+        if (userPassword2Field.getLength() < 1) {try {backToPreviousScene();} catch (IOException ex) {Logger.getLogger(A01_loginInputUserNameController.class.getName()).log(Level.SEVERE, null, ex);  }}
+        else {clearUserPassword2();}
+      }
+    });
+    
+    //check on TAB
+    UserNameField.setOnKeyPressed((KeyEvent keyInput) -> {
+      if(keyInput.getCode() == KeyCode.TAB &&
+          keyInput.getCode() != KeyCode.SHIFT) // does nothing while doing SHIFT + TAB
+      {checkUserName();}
+    });
+    userPassword2Field.setOnKeyPressed((KeyEvent keyInput) -> {
+      if(keyInput.getCode() == KeyCode.TAB &&
+          keyInput.getCode() != KeyCode.SHIFT) // does nothing while doing SHIFT + TAB
+      {checkPasswords();}
+    });
+    
+  }
+  
   @FXML private void enableRegister(){
     // this method check both input and show the Register button
     if(isPasswordValid&&isUserNameAvailable){

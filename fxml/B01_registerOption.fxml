@@ -14,7 +14,7 @@
     <children>
       <Label alignment="CENTER" layoutX="63.0" layoutY="56.0" prefHeight="82.0" prefWidth="329.0" text="Register" textAlignment="CENTER" textFill="#009900">
          <font><Font name="System Bold" size="26.0" /></font></Label>
-      <TextField fx:id="UserNameField" layoutX="105.0" layoutY="130.0" prefHeight="43.0" prefWidth="287.0" promptText="Enter your user name" style="-fx-background-color: white;">
+      <TextField fx:id="UserNameField" layoutX="105.0" layoutY="130.0" onKeyTyped="#userNameCheckOnType" prefHeight="43.0" prefWidth="287.0" promptText="Enter your user name" style="-fx-background-color: white;">
          <font>
             <Font size="20.0" />
          </font>

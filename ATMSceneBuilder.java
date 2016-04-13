@@ -1,20 +1,21 @@
 /* 
 Title: A  becoming-Crazy ATM
-Description: This is a simple but not ordinary ATM, it will not usually meet user's needs correctly :)
-                    During the program's process, I also print a lot to the console to check the program working
-                    (in the console, there are program's status, user names and passwords, ...)
+Description: 
+  This is a simple but not ordinary ATM, it will not usually meet user's needs correctly :)
+  During the program's process, I also print a lot to the console to check the program working
+  (in the console, there are program's status, user names and passwords, ...)
 Author: Hai Nguyen
 Version: v6
 Last updated: 12:37 PM,  April 12, 2016
 List of features:
 		○ Manage bank accounts by read & write text file (user's infomation and statistics)
 		○ Create new accounts and save it to the same text file
-        ○ Delete account after entering wrong password 3 times 
+    ○ Delete account after entering wrong password 3 times 
 		○ Display & Edit user's information
 		○ Deposit & Withdraw money
-        ○ Crazy Sound effect
-        ○ "Security" questions
-        ○ Coin or Cash withdraw
+    ○ Crazy Sound effect
+    ○ "Security" questions
+    ○ Coin or Cash withdraw
 */
 
 package ATMjavafx;
