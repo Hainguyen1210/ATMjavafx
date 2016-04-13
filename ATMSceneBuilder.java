@@ -16,6 +16,7 @@ List of features:
     ○ Crazy Sound effect
     ○ "Security" questions
     ○ Coin or Cash withdraw
+    ○ Open Browser with url
 */
 
 package ATMjavafx;

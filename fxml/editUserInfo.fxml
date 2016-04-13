@@ -10,15 +10,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="311.0" stylesheets="@../MainStyle.css" 
-            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATMjavafx.controller.EditUserInfoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="311.0" stylesheets="@../MainStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATMjavafx.controller.EditUserInfoController">
    <children>
       <Label alignment="CENTER" layoutX="20.0" layoutY="8.0" prefHeight="41.0" prefWidth="272.0" text="Edit user information" textFill="#009900">
          <font>
             <Font name="System Bold" size="26.0" />
          </font>
       </Label>
-      <VBox layoutX="111.0" layoutY="73.0" prefHeight="272.0" prefWidth="190.0">
+      <VBox layoutX="111.0" layoutY="73.0" prefHeight="245.0" prefWidth="190.0">
          <children>
             <TextField fx:id="userNameField" onContextMenuRequested="#checkUserName" onKeyPressed="#checkUserName" onKeyTyped="#checkUserName" onMouseClicked="#checkUserName" onMouseMoved="#checkUserName" prefHeight="41.0" prefWidth="190.0" promptText="No white space" style="-fx-background-color: white;">
                <font>
@@ -142,5 +141,6 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
+      <Hyperlink fx:id="oldestPerson" alignment="CENTER" layoutX="102.0" layoutY="318.0" prefHeight="23.0" prefWidth="190.0" text="Oldest person in  the world" visible="false" />
    </children>
 </AnchorPane>

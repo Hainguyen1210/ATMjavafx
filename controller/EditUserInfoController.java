@@ -1,17 +1,23 @@
 package ATMjavafx.controller;
 
 import ATMjavafx.Account;
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -29,6 +35,7 @@ public class EditUserInfoController implements Initializable {
   @Override public void initialize(URL url, ResourceBundle rb) {
     assignCheckOnENTER();
     assignCheckOnTAB();
+    enableHyperlink();
   }
   
   Account currentAccount = ATMjavafx.controller.A01_loginInputUserNameController.currentAccount;
@@ -39,7 +46,7 @@ public class EditUserInfoController implements Initializable {
   @FXML TextField userNameField, password1Field, password2Field, realNameField, genderField, ageField;
   @FXML Button saveUserInfoButton;
   @FXML ImageView male, female;
-  
+  @FXML Hyperlink oldestPerson;
   
   @FXML private void checkUserName(){
     isUserNameAvailable=true;
@@ -106,15 +113,24 @@ public class EditUserInfoController implements Initializable {
   @FXML private void checkAge(){
     try {
       int age =Integer.parseInt(ageField.getText());
-      if (18<=age && age<=120){
+      if (18<=age && age<=114){ // -----------------VALID
         finalAge = age;
         isAgeValid=true;
-        AgeLabel.setTextFill(Color.GREEN);}
-      else{
+        AgeLabel.setTextFill(Color.GREEN);
+        oldestPerson.setVisible(false);
+      }
+      else if(age > 114) {  // ---------------------Greater than 114
         isAgeValid=false;
         AgeLabel.setTextFill(Color.RED); 
         ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();
-        }
+        oldestPerson.setVisible(true);
+      }
+      else  // ------------------------------------Lower than 18
+      {
+        isAgeValid=false;
+        AgeLabel.setTextFill(Color.RED); 
+        ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();
+      }
     } 
     catch (Exception e) {
       isAgeValid=false;
@@ -143,6 +159,13 @@ public class EditUserInfoController implements Initializable {
     } else{    ATMjavafx.Sound.error.stop(); ATMjavafx.Sound.error.play();    }
   }
   
+  @FXML private void enableHyperlink(){
+   oldestPerson.setOnAction((ActionEvent e) -> {
+     try {
+       Desktop.getDesktop().browse(new URI("https://www.google.com/search?q=oldest+person+in+the+world&tbm=isch&imgil=6Qxvxh32O3mhRM%253A%253B_YJAjoxNb_VftM%253Bhttp%25253A%25252F%25252Fwww.dailymail.co.uk%25252Fnews%25252Farticle-3022811%25252FIs-oldest-person-lived-Uzbekistan-claims-proof-woman-died-week-135.html&source=iu&pf=m&fir=6Qxvxh32O3mhRM%253A%252C_YJAjoxNb_VftM%252C_&usg=__LRuDHPTiMK6OYcFw_IXVCLBuZhU%3D&biw=1366&bih=661&ved=0ahUKEwijpbCZhYvMAhUJwWMKHa3iD8gQyjcIJg&ei=au4NV6PIDImCjwOtxb_ADA#imgrc=6Qxvxh32O3mhRM%3A"));
+     } catch (IOException | URISyntaxException e1) {}
+   });
+  }
   @FXML private void assignCheckOnTAB(){
     // check user input on each TAB
   userNameField.setOnKeyPressed((KeyEvent keyInput) -> {
